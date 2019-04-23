@@ -1,4 +1,4 @@
-package br.com.fatec.model;
+package br.com.fatec.model.livro;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,10 +11,12 @@ public class Livro {
     private float preco;
     private String resumo;
     private int quantidade;
+    private boolean esgotado;
     private List<Autor> autores;
     
     public Livro(){
         this.autores = new ArrayList<>();
+        this.esgotado = false;
     }
     
     public void addAutor(Autor autor){
@@ -80,6 +82,20 @@ public class Livro {
     }
 
     public void setQuantidade(int quantidade) {
+        if (quantidade < 0)
+            throw new RuntimeException("Quantidade não pode ser menor que 0");
+        if (quantidade == 0)
+            this.setEsgotado(true);
+        else
+            this.setEsgotado(false);
         this.quantidade = quantidade;
-    }    
+    }
+
+    public boolean isEsgotado() {
+        return esgotado;
+    }
+
+    private void setEsgotado(boolean esgotado) {
+        this.esgotado = esgotado;
+    }
 }

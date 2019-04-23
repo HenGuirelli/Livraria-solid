@@ -1,4 +1,4 @@
-package br.com.fatec.model;
+package br.com.fatec.model.livro;
 
 import java.util.ArrayList;
 import java.util.List;

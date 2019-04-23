@@ -1,7 +1,7 @@
 package livraria;
 
 import br.com.fatec.DAO.LivroDAO;
-import br.com.fatec.model.Livro;
+import br.com.fatec.model.livro.Livro;
 
 public class Livraria {
     private static int cont = 0;

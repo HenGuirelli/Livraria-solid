@@ -1,4 +1,4 @@
-import br.com.fatec.model.Sumario;
+import br.com.fatec.model.livro.Sumario;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
