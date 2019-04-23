@@ -24,4 +24,13 @@ public class Carrinho {
     public float getPrecoTotal(){
         return precoTotal;
     }
+    
+    public List<ItemCarrinho> getItens(){
+        return this.itens;
+    }
+    
+    public void esvaziar(){
+        this.itens = new ArrayList();
+        this.precoTotal = 0;
+    }
 }
