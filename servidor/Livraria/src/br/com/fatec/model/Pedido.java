@@ -8,6 +8,14 @@ public class Pedido {
     private Date data;
     private EstadoPedido estado;
     private Cliente cliente;
+    private int codigo;
+    
+    private static int cod = 0;
+    
+    public Pedido(){
+        cod++;
+        this.codigo = cod;
+    }
 
     public Cliente getCliente() {
         return cliente;
