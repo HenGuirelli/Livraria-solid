@@ -14,11 +14,13 @@ public class Livro {
     private boolean esgotado;
     private List<Autor> autores;
     
+    // construtor
     public Livro(){
         this.autores = new ArrayList<>();
         this.esgotado = false;
     }
     
+    // metodos    
     public void addAutor(Autor autor){
         this.autores.add(autor);
     }
@@ -27,6 +29,14 @@ public class Livro {
         this.autores.remove(autor);
     }
     
+    public void comprar(int quantidade){
+        this.setQuantidade(this.getQuantidade() - quantidade);
+        if (this.quantidade == 0){
+            this.setEsgotado(true);
+        }
+    }    
+    
+    // getters e setters
     public String getTitulo() {
         return titulo;
     }
