@@ -8,12 +8,12 @@ import br.com.fatec.model.usuario.Cliente;
 public class CompraController {
     public void comprar(Carrinho carrinho, Cliente cliente){
         for(ItemCarrinho itemCarrinho : carrinho.getItens()){
-            this.comprar(itemCarrinho.getLivro(), cliente);
+            this.comprar(itemCarrinho.getLivro(), itemCarrinho.getQuantidade(), cliente);
         }
         carrinho.esvaziar();
     }
     
-    public void comprar(Livro livro, Cliente cliente){
-        
+    public void comprar(Livro livro, int qtd, Cliente cliente){
+        livro.comprar(qtd);
     }
 }
