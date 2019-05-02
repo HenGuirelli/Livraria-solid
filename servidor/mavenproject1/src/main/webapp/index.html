@@ -1,10 +1,65 @@
-<!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
-        <title>Start Page</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <link rel="stylesheet" href="resources/css/style.css">
+        <link rel="stylesheet" href="resources/css/home.css">
+        <title>Livraria</title>
     </head>
     <body>
-        <h1>Hello World!</h1>
+        <nav class="menu">
+            <div class="acesso">
+                <button onClick="window.location.href = baseURL + '/login.html'">login</button>
+                <button onClick="window.location.href = baseURL + '/cadastro.html'">cadastro</button>
+            </div>
+            <div class="pesquisa-livros">
+                <input type="text" placeholder="Pesquisar por nome, editora ou autor" />
+                <button>Pesquisar</button>
+            </div>
+        </nav>
+
+        <h1 class="nome-livraria"></h1> <!-- nome livraria -->
+
+        <main class="produtos-vitrine">
+
+        </main>
+
     </body>
+    <script src="resources/common.js"></script>
+    <script src="resources/livro.js"></script>
+
+    <script type="text/javascript">
+        const $vitrine = document.querySelector('.produtos-vitrine')
+
+        const criarProdutoVitrine = produto => {
+            const $wrapper = document.createElement('div')
+            const $imagem = document.createElement('img')
+            const $preco = document.createElement('p')
+            const $titulo = document.createElement('p')
+            const $categoria = document.createElement('p')
+
+            $wrapper.classList.add('wrapper-produto')
+
+            $wrapper.appendChild($titulo)
+            $wrapper.appendChild($imagem)
+            $wrapper.appendChild($preco)
+            $wrapper.appendChild($categoria)
+
+            $titulo.innerHTML = produto.titulo
+            $preco.innerHTML = produto.preco
+            $categoria.innerHTML = produto.categoria
+
+            return $wrapper
+        }
+
+        const adicionarProdutoNaVitrine = $produto => $vitrine.appendChild($produto)
+
+        getLivros()
+                .then(livros => livros.forEach(livro => {
+                        adicionarProdutoNaVitrine(criarProdutoVitrine(livro))
+                    })
+                )
+
+    </script>
 </html>

@@ -27,9 +27,15 @@ public class ContaController {
     
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
+    @Produces(MediaType.APPLICATION_JSON)
     @Path("cadastro")
-    public void criarConta(br.com.fatec.model.usuario.Usuario usuario){
-        System.out.println(usuario.getLogin() + " " + usuario.getSenha() + " " + usuario.getSenha());
+    public ResultProcesso criarConta(br.com.fatec.model.usuario.Cliente usuario){
+        System.out.println(usuario.getLogin() + " " + usuario.getSenha());
         
+        controller.criarConta(usuario.getLogin(), usuario.getSenha(), usuario.getNome());
+        
+        ResultProcesso result = new ResultProcesso();
+        result.setSuccess(true);
+        return result;
     }
 }

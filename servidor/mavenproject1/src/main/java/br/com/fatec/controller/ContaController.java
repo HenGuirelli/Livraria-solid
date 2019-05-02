@@ -22,7 +22,7 @@ public class ContaController {
         cliente.setNome(nome);
         cliente.setLogin(login);
         cliente.setSenha(senha);
-        
+        System.out.println("Cliente adicionado: " + nome);
         dao.add(cliente);
     }
     

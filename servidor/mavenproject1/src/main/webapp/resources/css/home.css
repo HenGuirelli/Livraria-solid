@@ -1,0 +1,15 @@
+.nome-livraria {
+    text-align: center;
+}
+
+.wrapper-produto {
+    margin: 1em;
+}
+
+.produtos-vitrine {
+    display: flex;
+}
+
+.wrapper-produto:hover {
+    border: solid 1px gray;
+}
