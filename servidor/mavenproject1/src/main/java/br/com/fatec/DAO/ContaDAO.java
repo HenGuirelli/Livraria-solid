@@ -1,6 +1,8 @@
 package br.com.fatec.DAO;
 
+import br.com.fatec.model.usuario.Cliente;
 import br.com.fatec.model.usuario.Usuario;
+import java.util.ArrayList;
 import java.util.List;
 
 public class ContaDAO extends DAO<Usuario> {
@@ -30,5 +32,15 @@ public class ContaDAO extends DAO<Usuario> {
                 return user;
         }
         return null;
+    }
+    
+    List<Cliente> getClientes(){
+        List<Cliente> result = new ArrayList<>();
+        for(Usuario usuario : super.getAll()){
+            if (usuario instanceof Cliente)
+                result.add((Cliente) usuario);
+        }
+        
+        return result;
     }
 }

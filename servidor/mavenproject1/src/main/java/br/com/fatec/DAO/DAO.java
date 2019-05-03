@@ -30,7 +30,7 @@ public abstract class DAO<T> {
     protected List<T> filter(String nomeAtributo, String valorEsperado){
         ArrayList<T> result = new ArrayList<>();
         for (T obj : this.data){
-            String valorAtributo = getValueByAtributeName(obj, nomeAtributo);   
+            String valorAtributo = getValueByAtributeName(obj, nomeAtributo);
             if (valorAtributo != null && valorAtributo.toLowerCase().equals(valorEsperado.toLowerCase())){
                 result.add(obj);
             }

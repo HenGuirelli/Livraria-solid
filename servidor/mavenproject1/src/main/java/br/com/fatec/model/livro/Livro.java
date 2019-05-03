@@ -2,6 +2,7 @@ package br.com.fatec.model.livro;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class Livro {
     private String titulo;
@@ -34,7 +35,38 @@ public class Livro {
         if (this.quantidade == 0){
             this.setEsgotado(true);
         }
-    }    
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 13 * hash + Objects.hashCode(this.titulo);
+        hash = 13 * hash + Objects.hashCode(this.autores);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Livro other = (Livro) obj;
+        if (!Objects.equals(this.titulo, other.titulo)) {
+            return false;
+        }
+        if (!Objects.equals(this.autores, other.autores)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
     
     // getters e setters
     public String getTitulo() {

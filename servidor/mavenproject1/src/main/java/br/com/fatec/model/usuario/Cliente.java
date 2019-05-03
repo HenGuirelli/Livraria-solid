@@ -1,5 +1,7 @@
 package br.com.fatec.model.usuario;
 
+import br.com.fatec.model.carrinho.Carrinho;
+import br.com.fatec.model.livro.Livro;
 import java.util.Date;
 
 public class Cliente extends Usuario {
@@ -7,7 +9,20 @@ public class Cliente extends Usuario {
     private Date nascimento;
     private String cpf;
     private DadosPagamento dadosPagamento;
+    private Carrinho carrinho;
 
+    public Cliente(){
+        this.carrinho = new Carrinho();
+    }
+    
+    public Carrinho getCarrinho() {
+        return carrinho;
+    }
+
+    public void setCarrinho(Carrinho carrinho) {
+        this.carrinho = carrinho;
+    }
+    
     public String getNome() {
         return nome;
     }

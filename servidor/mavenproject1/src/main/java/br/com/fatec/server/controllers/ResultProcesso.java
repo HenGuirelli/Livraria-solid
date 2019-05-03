@@ -10,4 +10,16 @@ public class ResultProcesso {
     public void setSuccess(boolean success) {
         this.success = success;
     }
+    
+    public static ResultProcesso getSucesso(){
+        ResultProcesso sucesso = new ResultProcesso();
+        sucesso.setSuccess(true);
+        return sucesso;
+    }
+    
+    public static ResultProcesso getFalha(){
+        ResultProcesso sucesso = new ResultProcesso();
+        sucesso.setSuccess(false);
+        return sucesso;
+    }
 }
