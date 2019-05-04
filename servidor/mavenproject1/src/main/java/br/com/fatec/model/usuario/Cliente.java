@@ -1,8 +1,10 @@
 package br.com.fatec.model.usuario;
 
 import br.com.fatec.model.carrinho.Carrinho;
-import br.com.fatec.model.livro.Livro;
+import br.com.fatec.model.pedido.Pedido;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Cliente extends Usuario {
     private String nome;
@@ -10,11 +12,26 @@ public class Cliente extends Usuario {
     private String cpf;
     private DadosPagamento dadosPagamento;
     private Carrinho carrinho;
+    private List<Pedido> pedidos = new ArrayList<>();
 
+    // construtor
     public Cliente(){
         this.carrinho = new Carrinho();
     }
     
+    public void addPedido(Pedido pedido){
+        pedidos.add(pedido);
+    }
+    
+    public void removerPedido(Pedido pedido){
+        pedidos.remove(pedido);
+    }
+    
+    public List<Pedido> getPedidos(){
+        return this.pedidos;
+    }
+    
+    // getters e setters
     public Carrinho getCarrinho() {
         return carrinho;
     }

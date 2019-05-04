@@ -12,18 +12,33 @@ public class VendaController {
     public Pedido vender(Livro livro, Cliente cliente, int quantidade) {
         PedidoDAO dao = PedidoDAO.getInstance();
         livro.vender(cliente, quantidade);
+        
         Pedido pedido = new Pedido();
         pedido.addLivro(livro);
+        pedido.setCliente(cliente);        
+        cliente.addPedido(pedido);
         dao.add(pedido);
+        
         return pedido;
     }
     
     public Pedido vender(Carrinho carrinho, Cliente cliente) {
+        
+        if (cliente == null) {
+            throw new RuntimeException("Cliente não encontrado");
+        }
+
+        if (cliente.getCarrinho().totalItensCarrinho() == 0) {
+            throw new RuntimeException("Carrinho vazio");
+        }
+        
         PedidoDAO dao = PedidoDAO.getInstance();
-        Pedido pedido = new Pedido();        
+        Pedido pedido = new Pedido();
         for (ItemCarrinho item : carrinho.getItens()) {
             item.getLivro().vender(cliente, item.getQuantidade());
             pedido.addLivro(item.getLivro());
+            pedido.setCliente(cliente);            
+            cliente.addPedido(pedido);
         }
         dao.add(pedido);
         return pedido;

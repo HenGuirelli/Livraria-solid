@@ -5,24 +5,31 @@ import java.util.List;
 
 public class Carrinho {
     private List<ItemCarrinho> itens;
-    private float precoTotal;
     
     public Carrinho(){
         this.itens = new ArrayList<>();
     }
     
+    public int totalItensCarrinho(){
+        int qtd = 0;
+        for (ItemCarrinho item : itens)
+            qtd += item.getQuantidade();
+        return qtd;
+    }
+    
     public void addItem(ItemCarrinho item){
-        precoTotal += item.getValor();
         this.itens.add(item);
     }
     
     public void removeItem(ItemCarrinho item){
-        precoTotal -= item.getValor();
         this.itens.remove(item);
     }
     
     public float getPrecoTotal(){
-        return precoTotal;
+        float preco = 0;
+        for (ItemCarrinho item : itens)
+            preco += item.getValor();
+        return preco;
     }
     
     public List<ItemCarrinho> getItens(){
@@ -31,6 +38,5 @@ public class Carrinho {
     
     public void esvaziar(){
         this.itens = new ArrayList();
-        this.precoTotal = 0;
     }
 }

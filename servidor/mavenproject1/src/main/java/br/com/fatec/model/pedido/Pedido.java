@@ -3,9 +3,11 @@ package br.com.fatec.model.pedido;
 import br.com.fatec.DAO.CodigoDAO;
 import br.com.fatec.enums.EstadoPedido;
 import br.com.fatec.model.livro.Livro;
+import br.com.fatec.model.usuario.Cliente;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 public class Pedido {
@@ -16,6 +18,7 @@ public class Pedido {
     private Date entregue;
     private String codigo;
     private List<Livro> livros;
+    private Cliente cliente;
 
     public Pedido() {
         setCodigo(Pedido.gerarNovoCodigo());
@@ -48,10 +51,18 @@ public class Pedido {
         return codigo.toString();
     }
 
-    public void addLivro(Livro livro){
+    public Cliente getCliente() {
+        return cliente;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
+    }
+
+    public void addLivro(Livro livro) {
         livros.add(livro);
     }
-    
+
     public EstadoPedido getEstado() {
         return estado;
     }
@@ -92,5 +103,30 @@ public class Pedido {
         CodigoDAO dao = CodigoDAO.getInstance();
         dao.add(codigo);
         this.codigo = codigo;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 47 * hash + Objects.hashCode(this.codigo);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Pedido other = (Pedido) obj;
+        if (!Objects.equals(this.codigo, other.codigo)) {
+            return false;
+        }
+        return true;
     }
 }
