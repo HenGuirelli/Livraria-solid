@@ -13,7 +13,7 @@ public class Livro {
     private String editora;
     private float preco;
     private String resumo;
-    private int quantidade;
+    private int quantidade = 20;
     private boolean esgotado;
     private List<Autor> autores;
     

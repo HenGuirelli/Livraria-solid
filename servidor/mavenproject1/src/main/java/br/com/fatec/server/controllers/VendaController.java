@@ -12,6 +12,28 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
+@Path("venda")
+public class VendaController {
+    private br.com.fatec.controller.VendaController controller = new br.com.fatec.controller.VendaController();
+    
+    @POST
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("vender")
+    public ResultProcesso vender(VendaRequest venda){
+        ClienteDAO dao = ClienteDAO.getInstance();
+        
+        ResultProcesso processo = new ResultProcesso();
+        
+        processo.setSuccess(true);
+        Pedido pedido = controller.vender(venda.getLivro(), venda.getCliente(), venda.getQuantidade());
+        processo.setMensagem("código do pedido: " + pedido.getCodigo());
+        
+        return processo;
+    }
+}
+
+
 class VendaRequest {
     private Cliente cliente;
     private int quantidade;
@@ -39,26 +61,5 @@ class VendaRequest {
 
     public void setLivro(Livro livro) {
         this.livro = livro;
-    }
-}
-
-@Path("venda")
-public class VendaController {
-    private br.com.fatec.controller.VendaController controller = new br.com.fatec.controller.VendaController();
-    
-    @POST
-    @Produces(MediaType.APPLICATION_JSON)
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Path("vender")
-    public ResultProcesso vender(VendaRequest venda){
-        ClienteDAO dao = ClienteDAO.getInstance();
-        
-        ResultProcesso processo = new ResultProcesso();
-        
-        processo.setSuccess(true);
-        Pedido pedido = controller.vender(venda.getLivro(), venda.getCliente(), venda.getQuantidade());
-        processo.setMensagem("código do pedido: " + pedido.getCodigo());
-        
-        return processo;
     }
 }

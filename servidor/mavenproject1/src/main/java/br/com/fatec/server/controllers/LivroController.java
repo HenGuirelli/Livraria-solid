@@ -34,7 +34,7 @@ public class LivroController {
         
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("editora/{nome}")
+    @Path("nome/{nome}")
     public List<Livro> getLivrosPorNome(@PathParam("editora") String nome){
         return livroController.getLivrosPorNome(nome);
     }
