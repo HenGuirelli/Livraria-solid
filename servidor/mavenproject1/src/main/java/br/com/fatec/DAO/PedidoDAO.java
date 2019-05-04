@@ -27,7 +27,10 @@ public class PedidoDAO extends DAO<Pedido> {
     }
 
     public void alterarEstado(Pedido pedido, EstadoPedido estado) {
-        super.filter("codigo", pedido.getCodigo());
+        try {
+            Pedido result = super.filter("codigo", pedido.getCodigo()).get(0);
+            result.setEstado(estado);
+        }catch (Exception ex) { ex.printStackTrace(); }
     }
 
     public List<Pedido> pegarTodos() {
@@ -48,5 +51,13 @@ public class PedidoDAO extends DAO<Pedido> {
 
     public List<Pedido> pegarPedidosEntregue() {
         return pegarPedidoPorStatus(EstadoPedido.entregue);
+    }
+    
+    public Pedido buscarPedidoPorCodigo(String codigo){
+        try {
+            return super.filter("codigo", codigo).get(0);
+        }catch(Exception ex){
+            return null;
+        }
     }
 }

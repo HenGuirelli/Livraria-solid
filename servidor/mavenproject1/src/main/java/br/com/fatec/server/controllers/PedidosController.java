@@ -4,6 +4,8 @@ import br.com.fatec.model.pedido.Pedido;
 import br.com.fatec.model.usuario.Cliente;
 import java.util.List;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
@@ -48,5 +50,21 @@ public class PedidosController {
     public List<Pedido> filtrarPedidosPorCliente(@PathParam("cliente") String cliente){
         Cliente c = clienteController.getCliente(cliente);
         return clienteController.pegarPedidos(c);
+    }
+    
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/alterar/{codigo}/enviado")
+    public ResultProcesso alterarEstadoPedidoEnviado(@PathParam("codigo") String codigoPedido){
+        controller.alterarEstadoPedidoEnviado(codigoPedido);
+        return ResultProcesso.getSucesso();
+    }
+    
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("/alterar/{codigo}/entregue")
+    public ResultProcesso alterarEstadoPedidoEntregue(@PathParam("codigo") String codigoPedido){
+        controller.alterarEstadoPedidoEntregue(codigoPedido);
+        return ResultProcesso.getSucesso();
     }
 }
