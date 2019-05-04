@@ -1,5 +1,7 @@
 package br.com.fatec.model.livro;
 
+import br.com.fatec.DAO.LivroDAO;
+import br.com.fatec.model.usuario.Cliente;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -30,11 +32,17 @@ public class Livro {
         this.autores.remove(autor);
     }
     
-    public void comprar(int quantidade){
-        this.setQuantidade(this.getQuantidade() - quantidade);
+    public void vender(Cliente cliente, int quantidade){
+        // atualiza model
+        int novaQuantidade = this.getQuantidade() - quantidade;
+        this.setQuantidade(novaQuantidade);
         if (this.quantidade == 0){
             this.setEsgotado(true);
         }
+        
+        // atualiza no banco de dados
+        LivroDAO dao = LivroDAO.getInstance();
+        dao.atualizarQuantidade(this, novaQuantidade);
     }
 
     @Override

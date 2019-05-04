@@ -1,13 +1,11 @@
 package br.com.fatec.server.controllers;
 
-import br.com.fatec.DAO.LivroDAO;
 import br.com.fatec.model.livro.Livro;
 import javax.ws.rs.Path;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Path("livro")
@@ -32,5 +30,12 @@ public class LivroController {
     @Path("editora/{editora}")
     public List<Livro> getLivrosPorEditora(@PathParam("editora") String editora){
         return livroController.getLivrosPorEditora(editora);
+    }
+        
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("editora/{nome}")
+    public List<Livro> getLivrosPorNome(@PathParam("editora") String nome){
+        return livroController.getLivrosPorNome(nome);
     }
 }

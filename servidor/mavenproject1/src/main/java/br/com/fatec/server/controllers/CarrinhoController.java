@@ -1,21 +1,16 @@
 package br.com.fatec.server.controllers;
 
 import br.com.fatec.DAO.ClienteDAO;
-import br.com.fatec.DTO.ClienteLivroDTO;
 import br.com.fatec.model.carrinho.Carrinho;
 import br.com.fatec.model.livro.Livro;
 import br.com.fatec.model.usuario.Cliente;
-import java.util.ArrayList;
-import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
-import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
-
 
 @Path("carrinho")
 public class CarrinhoController {
@@ -25,10 +20,9 @@ public class CarrinhoController {
     @Path("adicionar/{cliente}")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public ResultProcesso addItem(@PathParam("cliente") String login, Livro livro){
-        ClienteDAO dao =  ClienteDAO.getInstance();
-        Cliente cliente = dao.getCliente(login);
-        
+    public ResultProcesso addItem(@PathParam("cliente") String login, Livro livro){        
+        Cliente cliente = ClienteDAO.getInstance().getCliente(login);
+
         controller.add(cliente, livro);
         return ResultProcesso.getSucesso();
     }

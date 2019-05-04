@@ -11,7 +11,6 @@ public class CarrinhoController {
         item.setLivro(livro);
         
         boolean itemExiste = cliente.getCarrinho().getItens().contains(item);
-        System.out.println("existe: " + itemExiste);
         if (itemExiste){
             int index = cliente.getCarrinho().getItens().indexOf(item);
             ItemCarrinho i = cliente.getCarrinho().getItens().get(index);

@@ -19,4 +19,9 @@ public class LivroController {
         LivroDAO dao = LivroDAO.getInstance();
         return dao.getLivroPorEditora(editora);
     }
+    
+    public List<Livro> getLivrosPorNome(String nome){
+        LivroDAO dao = LivroDAO.getInstance();
+        return dao.getLivroPorNome(nome);
+    }
 }

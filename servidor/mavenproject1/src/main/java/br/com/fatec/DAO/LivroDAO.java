@@ -38,4 +38,12 @@ public class LivroDAO extends DAO<Livro> {
     public List<Livro> getLivros(){
         return super.getAll();
     }
+    
+    public void atualizarQuantidade(Livro livro, int novaQuantidade){
+        for (Livro l : getLivros()){
+            if (l.equals(livro)){
+                l.setQuantidade(novaQuantidade);
+            }
+        }
+    }
 }

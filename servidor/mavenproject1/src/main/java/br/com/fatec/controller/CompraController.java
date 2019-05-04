@@ -14,6 +14,6 @@ public class CompraController {
     }
     
     public void comprar(Livro livro, int qtd, Cliente cliente){
-        livro.comprar(qtd);
+        //ivro.comprar(qtd);
     }
 }
