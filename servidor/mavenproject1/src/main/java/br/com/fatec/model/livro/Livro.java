@@ -7,6 +7,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class Livro {
+
     private String titulo;
     private String capa;
     private String categoria;
@@ -16,30 +17,32 @@ public class Livro {
     private int quantidade = 20;
     private boolean esgotado;
     private List<Autor> autores;
-    
+
+    static final String PATH_IMAGEM = "resources/images/";
+
     // construtor
-    public Livro(){
+    public Livro() {
         this.autores = new ArrayList<>();
         this.esgotado = false;
     }
-    
+
     // metodos    
-    public void addAutor(Autor autor){
+    public void addAutor(Autor autor) {
         this.autores.add(autor);
     }
-    
-    public void removerAutor(Autor autor){
+
+    public void removerAutor(Autor autor) {
         this.autores.remove(autor);
     }
-    
-    public void vender(Cliente cliente, int quantidade){
+
+    public void vender(Cliente cliente, int quantidade) {
         // atualiza model
         int novaQuantidade = this.getQuantidade() - quantidade;
         this.setQuantidade(novaQuantidade);
-        if (this.quantidade == 0){
+        if (this.quantidade == 0) {
             this.setEsgotado(true);
         }
-        
+
         // atualiza no banco de dados
         LivroDAO dao = LivroDAO.getInstance();
         dao.atualizarQuantidade(this, novaQuantidade);
@@ -73,9 +76,7 @@ public class Livro {
         }
         return true;
     }
-    
-    
-    
+
     // getters e setters
     public String getTitulo() {
         return titulo;
@@ -90,7 +91,11 @@ public class Livro {
     }
 
     public void setCapa(String capa) {
-        this.capa = capa;
+        if (capa.startsWith(PATH_IMAGEM)) {
+            this.capa = capa;
+        } else {
+            this.capa = PATH_IMAGEM + capa;
+        }
     }
 
     public String getCategoria() {
@@ -114,8 +119,9 @@ public class Livro {
     }
 
     public void setPreco(float preco) {
-        if (preco < 0 )
+        if (preco < 0) {
             throw new RuntimeException("Preço não pode ser negativo");
+        }
         this.preco = preco;
     }
 
@@ -132,12 +138,14 @@ public class Livro {
     }
 
     public void setQuantidade(int quantidade) {
-        if (quantidade < 0)
+        if (quantidade < 0) {
             throw new RuntimeException("Quantidade não pode ser menor que 0");
-        if (quantidade == 0)
+        }
+        if (quantidade == 0) {
             this.setEsgotado(true);
-        else
+        } else {
             this.setEsgotado(false);
+        }
         this.quantidade = quantidade;
     }
 

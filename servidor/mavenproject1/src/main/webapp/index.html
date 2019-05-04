@@ -41,14 +41,17 @@
 
             $wrapper.classList.add('wrapper-produto')
 
-            $wrapper.appendChild($titulo)
             $wrapper.appendChild($imagem)
+            $wrapper.appendChild($titulo)
             $wrapper.appendChild($preco)
             $wrapper.appendChild($categoria)
 
             $titulo.innerHTML = produto.titulo
             $preco.innerHTML = produto.preco
             $categoria.innerHTML = produto.categoria
+
+            $imagem.setAttribute('src', produto.capa)
+            $imagem.classList.add('imagem-vitrine')
 
             return $wrapper
         }
