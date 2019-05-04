@@ -15,7 +15,7 @@ public class VendaController {
         
         Pedido pedido = new Pedido();
         pedido.addLivro(livro);
-        pedido.setCliente(cliente);        
+        pedido.setCliente(cliente.getLogin());        
         cliente.addPedido(pedido);
         dao.add(pedido);
         
@@ -37,9 +37,9 @@ public class VendaController {
         for (ItemCarrinho item : carrinho.getItens()) {
             item.getLivro().vender(cliente, item.getQuantidade());
             pedido.addLivro(item.getLivro());
-            pedido.setCliente(cliente);            
-            cliente.addPedido(pedido);
-        }
+            pedido.setCliente(cliente.getLogin());
+        }            
+        cliente.addPedido(pedido);
         dao.add(pedido);
         return pedido;
     }

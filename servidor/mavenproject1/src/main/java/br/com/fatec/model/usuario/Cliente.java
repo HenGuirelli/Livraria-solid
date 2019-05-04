@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Cliente extends Usuario {
+
     private String nome;
     private Date nascimento;
     private String cpf;
@@ -15,22 +16,26 @@ public class Cliente extends Usuario {
     private List<Pedido> pedidos = new ArrayList<>();
 
     // construtor
-    public Cliente(){
+    public Cliente() {
         this.carrinho = new Carrinho();
     }
-    
-    public void addPedido(Pedido pedido){
+
+    public void addPedido(Pedido pedido) {
         pedidos.add(pedido);
     }
-    
-    public void removerPedido(Pedido pedido){
+
+    public void removerPedido(Pedido pedido) {
         pedidos.remove(pedido);
     }
-    
-    public List<Pedido> getPedidos(){
+
+    public List<Pedido> getPedidos() {
         return this.pedidos;
     }
     
+    public void setPedidos(List<Pedido> pedidos){
+        this.pedidos = pedidos;
+    }
+
     // getters e setters
     public Carrinho getCarrinho() {
         return carrinho;
@@ -39,7 +44,7 @@ public class Cliente extends Usuario {
     public void setCarrinho(Carrinho carrinho) {
         this.carrinho = carrinho;
     }
-    
+
     public String getNome() {
         return nome;
     }

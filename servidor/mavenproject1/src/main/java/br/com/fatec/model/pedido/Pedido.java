@@ -18,8 +18,8 @@ public class Pedido {
     private Date entregue;
     private String codigo;
     private List<Livro> livros;
-    private Cliente cliente;
-
+    private String cliente;
+    
     public Pedido() {
         setCodigo(Pedido.gerarNovoCodigo());
         dataCriacao = new Date(System.currentTimeMillis());
@@ -51,14 +51,14 @@ public class Pedido {
         return codigo.toString();
     }
 
-    public Cliente getCliente() {
+    public String getCliente() {
         return cliente;
     }
 
-    public void setCliente(Cliente cliente) {
+    public void setCliente(String cliente) {
         this.cliente = cliente;
     }
-
+    
     public void addLivro(Livro livro) {
         livros.add(livro);
     }
