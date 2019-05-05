@@ -8,7 +8,7 @@ import java.util.List;
 public class CarrinhoController {
     public void add(Cliente cliente, Livro livro){
         ItemCarrinho item = new ItemCarrinho();
-        item.setLivro(livro);
+        item.setProduto(livro);
         
         boolean itemExiste = cliente.getCarrinho().getItens().contains(item);
         if (itemExiste){
@@ -22,7 +22,7 @@ public class CarrinhoController {
     
     public void remover(Cliente cliente, Livro livro){
         for (ItemCarrinho item : cliente.getCarrinho().getItens()){
-            if (item.getLivro().equals(livro)){
+            if (item.getProduto().equals(livro)){
                 cliente.getCarrinho().removeItem(item);
             }
         }

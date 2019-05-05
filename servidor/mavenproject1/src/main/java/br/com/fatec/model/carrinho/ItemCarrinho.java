@@ -4,15 +4,15 @@ import br.com.fatec.model.livro.Livro;
 import java.util.Objects;
 
 public class ItemCarrinho {
-    private Livro livro;
+    private Livro produto;
     private int quantidade = 1;
 
-    public Livro getLivro() {
-        return livro;
+    public Livro getProduto() {
+        return produto;
     }
 
-    public void setLivro(Livro livro) {
-        this.livro = livro;
+    public void setProduto(Livro produto) {
+        this.produto = produto;
     }
 
     public int getQuantidade() {
@@ -34,7 +34,7 @@ public class ItemCarrinho {
     @Override
     public int hashCode() {
         int hash = 3;
-        hash = 41 * hash + Objects.hashCode(this.livro);
+        hash = 41 * hash + Objects.hashCode(this.produto);
         return hash;
     }
 
@@ -50,7 +50,7 @@ public class ItemCarrinho {
             return false;
         }
         final ItemCarrinho other = (ItemCarrinho) obj;
-        if (!Objects.equals(this.livro, other.livro)) {
+        if (!Objects.equals(this.produto, other.produto)) {
             return false;
         }
         return true;
@@ -59,10 +59,10 @@ public class ItemCarrinho {
     
     
     public float getValor(){
-        if (this.livro == null){
+        if (this.produto == null){
             System.err.println("livro é nulo na classe ItemCarrinho");
             return 0;
         }
-        return livro.getPreco() * quantidade;
+        return produto.getPreco() * quantidade;
     }
 }

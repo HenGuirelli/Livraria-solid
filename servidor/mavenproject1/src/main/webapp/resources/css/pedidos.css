@@ -1,4 +1,4 @@
-.pedido > * {
+.pedido > div > span {
     display: block
 }
 
@@ -6,4 +6,10 @@
     border: solid 1px;
     margin-top: 1em;
     padding: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrapper-imagem-produto {
+    max-width: 80px;
 }

@@ -2,6 +2,7 @@ package br.com.fatec.model.pedido;
 
 import br.com.fatec.DAO.CodigoDAO;
 import br.com.fatec.enums.EstadoPedido;
+import br.com.fatec.model.carrinho.ItemCarrinho;
 import br.com.fatec.model.livro.Livro;
 import br.com.fatec.model.usuario.Cliente;
 import java.util.ArrayList;
@@ -17,13 +18,13 @@ public class Pedido {
     private Date dataEmAtendimento;
     private Date entregue;
     private String codigo;
-    private List<Livro> livros;
+    private List<ItemCarrinho> produtos;
     private String cliente;
     
     public Pedido() {
         setCodigo(Pedido.gerarNovoCodigo());
         dataCriacao = new Date(System.currentTimeMillis());
-        livros = new ArrayList<>();
+        produtos = new ArrayList<>();
         estado = EstadoPedido.emAtendimento;
     }
 
@@ -59,8 +60,12 @@ public class Pedido {
         this.cliente = cliente;
     }
     
-    public void addLivro(Livro livro) {
-        livros.add(livro);
+    public List<ItemCarrinho> getProdutos(){
+        return produtos;
+    }
+    
+    public void addProduto(ItemCarrinho livro) {
+        produtos.add(livro);
     }
 
     public EstadoPedido getEstado() {

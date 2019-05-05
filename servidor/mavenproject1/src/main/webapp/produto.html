@@ -55,8 +55,8 @@
                     <input type="number" required id="digito-venda">
                 </label>
 
-                <button onClick="eventoCancelarCompra(event)">Cancelar</button>
-                <button onClick="eventoConfirmarCompra(event)">Confirmar</button>
+                <button onClick="eventoCancelarCompra(event)" id='btn-cancelar'>Cancelar</button>
+                <button onClick="eventoConfirmarCompra(event)" id='btn-confirmar'>Confirmar</button>
             </form>
         </div>
         <div class="area-produto-wrapper">
@@ -74,9 +74,9 @@
             </section>
 
             <section class="section-produto">
-                <select name="" id="">
-                    <option value="">A vista</option>
-                    <option value="">Parcelado</option>
+                <select name="" id="forma-pagamento">
+                    <option value="A_VISTA">A vista</option>
+                    <option value="PARCELADO">Parcelado</option>
                 </select>
                 <br />
                 <button onClick="eventoComprar()">Comprar</button>
@@ -122,10 +122,18 @@
         const numeroCartao = document.querySelector("#numero-cartao-venda").value
         const vencimento = document.querySelector("#validade-venda").value
         const digitoCartao = document.querySelector("#digito-venda").value
+        const formaPagamento = document.querySelector('#forma-pagamento').value
 
-        venderLivro(sessionStorage.getItem('logado'), 1, produto.titulo, { rua, numeroCasa, numeroCartao, vencimento, digitoCartao })
+        console.log(formaPagamento)
+
+        if (!rua || !numeroCasa || !numeroCartao || !vencimento || !digitoCartao){
+            return
+        }
+
+        venderLivro(sessionStorage.getItem('logado'), 1, produto.titulo, formaPagamento, { rua, numeroCasa, numeroCartao, vencimento, digitoCartao })
             .then(result => {
-                console.log(result)
+                alert('Comprado')
+                window.location.href = baseURL
             })
 
     }

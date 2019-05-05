@@ -11,10 +11,13 @@ public class VendaController {
     
     public Pedido vender(Livro livro, Cliente cliente, int quantidade) {
         PedidoDAO dao = PedidoDAO.getInstance();
+        ItemCarrinho item = new ItemCarrinho();
+        item.setProduto(livro);
+        
         livro.vender(cliente, quantidade);
         
         Pedido pedido = new Pedido();
-        pedido.addLivro(livro);
+        pedido.addProduto(item);
         pedido.setCliente(cliente.getLogin());        
         cliente.addPedido(pedido);
         dao.add(pedido);
@@ -35,8 +38,8 @@ public class VendaController {
         PedidoDAO dao = PedidoDAO.getInstance();
         Pedido pedido = new Pedido();
         for (ItemCarrinho item : carrinho.getItens()) {
-            item.getLivro().vender(cliente, item.getQuantidade());
-            pedido.addLivro(item.getLivro());
+            item.getProduto().vender(cliente, item.getQuantidade());
+            pedido.addProduto(item);
             pedido.setCliente(cliente.getLogin());
         }            
         cliente.addPedido(pedido);

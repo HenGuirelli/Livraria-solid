@@ -12,11 +12,35 @@
 }
 
 #comprar-popup {
-    position: absolute; 
-    background-color: var(--main-color);
+    position: fixed;
     margin: 0 auto;
+    left: 50%;
+    border: solid 10px var(--main-color);
+    border-radius: 10px;
+    padding: 50px;
 }
 
+#comprar-popup form label {
+    margin: 10px 0 10px 0;
+}
+
+#comprar-popup form label span {
+    display: block;
+}
+
+#btn-confirmar, #btn-cancelar {
+     padding: 5px;
+    color: var(--secondary-color);
+    width: 100px
+}
+
+#btn-confirmar {
+    background-color: var(--main-color);
+}
+
+#btn-cancelar {
+    background-color: #b30000;
+}
 
 #comprar-popup form,
 #comprar-popup form label {

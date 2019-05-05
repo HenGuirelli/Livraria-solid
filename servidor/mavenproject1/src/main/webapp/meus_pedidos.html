@@ -45,8 +45,10 @@
 
                 $pedidos.appendChild($aviso)
             }else{
+                console.log(result)
                 result.forEach(pedido => {
                     const $pedido = document.createElement('div')
+                    const $wrapTexto = document.createElement('div')
                     const $estado = document.createElement('span')
                     const $dataCriacao = document.createElement('span')
                     const $dataEmAtendimento = document.createElement('span')
@@ -54,12 +56,20 @@
                     const $codigo = document.createElement('span')
                     const $cliente = document.createElement('span')
 
-                    $pedido.appendChild($estado)
-                    $pedido.appendChild($dataCriacao)
-                    $pedido.appendChild($dataEmAtendimento)
-                    $pedido.appendChild($entregue)
-                    $pedido.appendChild($codigo)
-                    $pedido.appendChild($cliente)
+                    // foto dos produtos comprados
+                    const $itens = document.createElement('div')
+                    $itens.classList.add('wrapper-imagem-produto')
+
+                    $wrapTexto.appendChild($estado)
+                    $wrapTexto.appendChild($dataCriacao)
+                    $wrapTexto.appendChild($dataEmAtendimento)
+                    $wrapTexto.appendChild($entregue)
+                    $wrapTexto.appendChild($codigo)
+                    $wrapTexto.appendChild($cliente)
+
+                    $pedido.appendChild($wrapTexto)
+                    $pedido.appendChild($itens)
+                    
                     $pedidos.appendChild($pedido)
 
                     $pedido.classList.add('pedido')
@@ -69,6 +79,14 @@
                     $dataEmAtendimento.innerHTML = 'Em atendimento ' + (pedido.dataEmAtendimento || 'Não iniciado')
                     $entregue.innerHTML = 'Data de entrega: ' + (pedido.entregue || 'Não iniciado')
                     $codigo.innerHTML = 'Código do pedido: ' + pedido.codigo
+
+                    pedido.produtos.forEach( ({ produto }) => {
+
+                        const $item = document.createElement('img')
+                        $item.setAttribute('src', produto.capa)
+                        $itens.appendChild($item)
+
+                    })
 
                 })
             }
