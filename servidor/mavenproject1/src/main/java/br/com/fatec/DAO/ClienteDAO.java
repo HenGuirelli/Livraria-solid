@@ -42,14 +42,4 @@ public class ClienteDAO extends DAO<Cliente> {
         }
         return null;
     }
-
-    public List<Pedido> getPedidos(Cliente cliente) {
-        List<Cliente> clientes = super.filter("cliente", cliente.toString());
-
-        if (clientes == null || clientes.isEmpty()) {
-            return new ArrayList<>();
-        }
-
-        return clientes.get(0).getPedidos();
-    }
 }
