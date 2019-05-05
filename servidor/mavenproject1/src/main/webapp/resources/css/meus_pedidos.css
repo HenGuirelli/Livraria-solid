@@ -11,6 +11,7 @@
 }
 
 .wrapper-imagem-produto {
+    /* max-width: 80px; */
     display: table-footer-group;
 }
 

@@ -11,17 +11,23 @@
 
 <body>
     <nav class="menu">
+        <div class="redirecionar-home">
+            <button onClick="window.location.href = baseURL + '/'">Home</button>
+        </div>
+        
         <div class="acesso menu-direito">
             <button onClick="window.location.href = baseURL + '/login.html'">login</button>
             <button onClick="window.location.href = baseURL + '/cadastro.html'">cadastro</button>
         </div>
         <div class="meus-pedidos menu-direito">
             <button onClick="window.location.href = baseURL + '/meus_pedidos.html'">Meus pedidos</button>
+            <button onClick="window.location.href = baseURL + '/carrinho.html'">Carrinho</button>
         </div>
 
         <div class="pesquisa-livros">
-            <input type="text" placeholder="Pesquisar por nome, editora ou autor" />
-            <button>Pesquisar</button>
+            <input type="text" placeholder="Pesquisar por nome, editora ou autor" id='barra-pesquisa'>
+            <button
+                onClick="window.location.href = baseURL + '/pesquisa.html?pesquisa=' + document.querySelector('#barra-pesquisa').value">Pesquisar</button>
         </div>
     </nav>
 

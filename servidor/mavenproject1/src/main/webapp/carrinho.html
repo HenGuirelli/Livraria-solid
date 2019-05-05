@@ -1,0 +1,201 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="resources/css/carrinho.css">
+    <title>Livraria</title>
+</head>
+
+<body>
+    <nav class="menu">
+        <div class="redirecionar-home">
+            <button onClick="window.location.href = baseURL + '/'">Home</button>
+        </div>
+
+        <div class="acesso menu-direito">
+            <button onClick="window.location.href = baseURL + '/login.html'">login</button>
+            <button onClick="window.location.href = baseURL + '/cadastro.html'">cadastro</button>
+        </div>
+        <div class="meus-pedidos menu-direito">
+            <button onClick="window.location.href = baseURL + '/meus_pedidos.html'">Meus pedidos</button>
+            <button onClick="window.location.href = baseURL + '/carrinho.html'">Carrinho</button>
+        </div>
+        <div class="pesquisa-livros">
+            <input type="text" placeholder="Pesquisar por nome, editora ou autor" id='barra-pesquisa'>
+            <button
+                onClick="window.location.href = baseURL + '/pesquisa.html?pesquisa=' + document.querySelector('#barra-pesquisa').value">Pesquisar</button>
+        </div>
+    </nav>
+
+    <h1 class="nome-livraria"></h1> <!-- nome livraria -->
+
+    <main class="main-carrinho">
+        <div id="comprar-popup" class="nao-visivel">
+            <form>
+                <label>
+                    <span>Rua:</span>
+                    <input type="text" required id="rua-venda">
+                </label>
+
+                <label>
+                    <span>Numero:</span>
+                    <input type="number" required id="numero-venda">
+                </label>
+
+                <label>
+                    <span>Numero do cartão:</span>
+                    <input type="number" required id="numero-cartao-venda">
+                </label>
+
+                <label>
+                    <span>Validade:</span>
+                    <input type="date" required id="validade-venda">
+                </label>
+
+                <label>
+                    <span>Digito: </span>
+                    <input type="number" required id="digito-venda">
+                </label>
+
+                <label>
+                    <span>Forma de Pagamento: </span>
+                    <select name="" id="forma-pagamento">
+                            <option value="A_VISTA">A vista</option>
+                            <option value="PARCELADO">Parcelado</option>
+                        </select>
+                </label>
+
+                <button onClick="eventoCancelarCompra(event)" id='btn-cancelar'>Cancelar</button>
+                <button onClick="eventoConfirmarCompra(event)" id='btn-confirmar'>Confirmar</button>
+            </form>
+        </div>
+        <div class="carrinho"></div>
+        <hr />
+        <h3 id='valor-total'></h3>
+        <button id="btn-comprar" onClick='eventoComprar()'>Comprar</button>
+    </main>
+</body>
+
+<script src="resources/scripts/common.js"></script>
+<script src="resources/scripts/carrinho.js"></script>
+
+<script type="text/javascript">
+    const $mainCarrinho = document.querySelector('.carrinho')
+    const $comprarPopup = document.querySelector('#comprar-popup')
+
+    const atualizarPagina = async (carrinho) => {
+        console.log(carrinho)
+        $mainCarrinho.innerHTML = ''
+
+        const $valorTotal = document.querySelector('#valor-total')
+        $valorTotal.innerHTML = 'Valor total: R$ ' + carrinho.precoTotal
+
+        carrinho.itens.forEach(item => {
+            const { produto } = item
+
+            const $itemCarrinho = document.createElement('div')
+            $itemCarrinho.classList.add('item-carrinho')
+
+            const $imgWrapper = document.createElement('div')
+            const $img = document.createElement('img')
+            $imgWrapper.appendChild($img)
+            $imgWrapper.classList.add('img-wrapper')
+            $img.setAttribute('src', produto.capa)
+
+            const $textoWrapper = document.createElement('div')
+            const $nome = document.createElement('h3')
+            $nome.innerHTML = produto.titulo
+            const $resumo = document.createElement('p')
+            $resumo.innerHTML = produto.resumo
+            $textoWrapper.appendChild($nome)
+            $textoWrapper.appendChild($resumo)
+
+            const $dadosCompraWrapper = document.createElement('div')
+            const $preco = document.createElement('span')
+            $preco.innerHTML = 'R$ ' + produto.preco
+            const $quantidadeItem = document.createElement('input')
+            $quantidadeItem.type = 'number'
+            $quantidadeItem.value = item.quantidade
+            $quantidadeItem.onchange = () => {
+                // altera no servidor
+                alterarQuantidade(sessionStorage.getItem('logado'), produto.titulo, $quantidadeItem.value)
+                    .then(_ => {
+                        // carrega carrinho atualizado e carrega a pagina
+                        getCarrinho(sessionStorage.getItem('logado'))
+                            .then(carrinho => {
+                                atualizarPagina(carrinho)
+                            })
+                    })
+            }
+
+            const $botaoRemover = document.createElement('button')
+            $botaoRemover.innerHTML = 'Remover'
+            $botaoRemover.onclick = () => {
+                removerItem(sessionStorage.getItem('logado'), produto.titulo)
+                    .then(_ => {
+                        console.log(_)
+                        getCarrinho(sessionStorage.getItem('logado'))
+                            .then(carrinho => {
+                                atualizarPagina(carrinho)
+                            })
+                    })
+            }
+
+            $dadosCompraWrapper.appendChild($preco)
+            $dadosCompraWrapper.appendChild($quantidadeItem)
+            $dadosCompraWrapper.appendChild($botaoRemover)
+
+            $itemCarrinho.appendChild($imgWrapper)
+            $itemCarrinho.appendChild($textoWrapper)
+            $itemCarrinho.appendChild($dadosCompraWrapper)
+
+            $mainCarrinho.appendChild($itemCarrinho)
+        })
+    }
+
+    getCarrinho(sessionStorage.getItem('logado'))
+        .then(carrinho => {
+            atualizarPagina(carrinho)
+        })
+
+    const eventoComprar = (event) => {
+        $comprarPopup.classList.remove('nao-visivel')
+    }
+
+    const eventoCancelarCompra = (event) => {
+        try { event.preventDefault() } catch (e) { }
+        $comprarPopup.classList.add('nao-visivel')
+    }
+
+    const eventoConfirmarCompra = (event) => {
+        try { event.preventDefault() } catch (e) { }
+
+        const rua = document.querySelector("#rua-venda").value
+        const numeroCasa = document.querySelector("#numero-venda").value
+        const numeroCartao = document.querySelector("#numero-cartao-venda").value
+        const vencimento = document.querySelector("#validade-venda").value
+        const digitoCartao = document.querySelector("#digito-venda").value
+        const formaPagamento = document.querySelector('#forma-pagamento').value
+
+        if (!rua || !numeroCasa || !numeroCartao || !vencimento || !digitoCartao) {
+            return
+        }
+
+        venderCarrinho(sessionStorage.getItem('logado'), formaPagamento, { rua, numeroCasa, numeroCartao, vencimento, digitoCartao })
+        .then (_ => {
+            alert('Compra realizada')
+            getCarrinho(sessionStorage.getItem('logado'))
+            .then(carrinho => {
+                eventoCancelarCompra()
+                atualizarPagina(carrinho)
+            })
+        })
+
+
+    }
+</script>
+
+</html>

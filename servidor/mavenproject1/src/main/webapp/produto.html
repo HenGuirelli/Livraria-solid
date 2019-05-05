@@ -11,17 +11,23 @@
 
 <body>
     <nav class="menu">
+        <div class="redirecionar-home">
+            <button onClick="window.location.href = baseURL + '/'">Home</button>
+        </div>
+
         <div class="acesso menu-direito">
             <button onClick="window.location.href = baseURL + '/login.html'">login</button>
             <button onClick="window.location.href = baseURL + '/cadastro.html'">cadastro</button>
         </div>
         <div class="meus-pedidos menu-direito">
             <button onClick="window.location.href = baseURL + '/meus_pedidos.html'">Meus pedidos</button>
+            <button onClick="window.location.href = baseURL + '/carrinho.html'">Carrinho</button>
         </div>
 
         <div class="pesquisa-livros">
-            <input type="text" placeholder="Pesquisar por nome, editora ou autor" />
-            <button>Pesquisar</button>
+            <input type="text" placeholder="Pesquisar por nome, editora ou autor" id='barra-pesquisa'>
+            <button
+                onClick="window.location.href = baseURL + '/pesquisa.html?pesquisa=' + document.querySelector('#barra-pesquisa').value">Pesquisar</button>
         </div>
     </nav>
 
@@ -55,6 +61,11 @@
                     <input type="number" required id="digito-venda">
                 </label>
 
+                <select name="" id="forma-pagamento">
+                    <option value="A_VISTA">A vista</option>
+                    <option value="PARCELADO">Parcelado</option>
+                </select>
+
                 <button onClick="eventoCancelarCompra(event)" id='btn-cancelar'>Cancelar</button>
                 <button onClick="eventoConfirmarCompra(event)" id='btn-confirmar'>Confirmar</button>
             </form>
@@ -74,13 +85,9 @@
             </section>
 
             <section class="section-produto">
-                <select name="" id="forma-pagamento">
-                    <option value="A_VISTA">A vista</option>
-                    <option value="PARCELADO">Parcelado</option>
-                </select>
-                <br />
+
                 <button onClick="eventoComprar()">Comprar</button>
-                <button>Adicionar ao carrinho</button>
+                <button onClick="eventoAdicionarCarrinho()">Adicionar ao carrinho</button>
             </section>
         </div>
     </main>
@@ -88,6 +95,7 @@
 
 <script src="resources/scripts/common.js"></script>
 <script src="resources/scripts/venda.js"></script>
+<script src="resources/scripts/carrinho.js"></script>
 
 <script type="text/javascript">
     const produto = JSON.parse(localStorage.getItem('produto'))
@@ -126,7 +134,7 @@
 
         console.log(formaPagamento)
 
-        if (!rua || !numeroCasa || !numeroCartao || !vencimento || !digitoCartao){
+        if (!rua || !numeroCasa || !numeroCartao || !vencimento || !digitoCartao) {
             return
         }
 
@@ -136,6 +144,17 @@
                 window.location.href = baseURL
             })
 
+    }
+
+    const eventoAdicionarCarrinho = (event) => {
+        try { event.preventDefault() } catch (e) { }
+        const cliente = sessionStorage.getItem('logado')
+        const _produto = produto.titulo
+
+        adicionarAoCarrinho(cliente, _produto)
+            .then(result => {
+                alert('Produto adicionado')
+            })
     }
 
 </script>

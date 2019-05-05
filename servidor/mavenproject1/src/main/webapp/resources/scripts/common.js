@@ -37,3 +37,18 @@ const POST = async (url, body) => {
     console.log('POST: ', body)
     return result.json();
 }
+
+const PUT = async (url, body) => {
+    const result = await fetch(url, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+            "Access-Control-Allow-Origin" : "*", 
+            "Access-Control-Allow-Credentials" : true 
+        },
+        body: JSON.stringify(body)
+    })
+    console.log('PUT:', body)
+    return result.json();
+}

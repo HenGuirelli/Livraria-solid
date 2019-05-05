@@ -17,7 +17,8 @@ img {
 input[type='text'],
 input[type='number'],
 input[type='date'],
-input[type='password'] {
+input[type='password'],
+select {
     background-color: white !important;
     padding: 5px;
     min-width: 200px;
@@ -36,6 +37,10 @@ input[type='password'] {
 
 .menu-direito {
     float: right;
+}
+
+.redirecionar-home {
+    float: left;
 }
 
 .nao-visivel {

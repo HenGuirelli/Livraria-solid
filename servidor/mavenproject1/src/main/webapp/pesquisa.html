@@ -1,46 +1,54 @@
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="resources/css/style.css">
-        <link rel="stylesheet" href="resources/css/pesquisa.css">
-        <title>Livraria</title>
-    </head>
-    <body>
-        <nav class="menu">
-            <div class="acesso menu-direito">
-                <button onClick="window.location.href = baseURL + '/login.html'">login</button>
-                <button onClick="window.location.href = baseURL + '/cadastro.html'">cadastro</button>
-            </div>
-            <div class="meus-pedidos menu-direito">
-                <button onClick="window.location.href = baseURL + '/meus_pedidos.html'">Meus pedidos</button>
-            </div>
 
-            <div class="pesquisa-livros">
-                <input type="text" placeholder="Pesquisar por nome, editora ou autor" />
-                <button onClick="window.location.href = baseURL + '/pesquisa.html?pesquisa=' + document.querySelector('#barra-pesquisa').value">Pesquisar</button>
-            </div>
-        </nav>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="resources/css/pesquisa.css">
+    <title>Livraria</title>
+</head>
 
-        <h1 class="nome-livraria"></h1> <!-- nome livraria -->
+<body>
+    <nav class="menu">
+        <div class="redirecionar-home">
+            <button onClick="window.location.href = baseURL + '/'">Home</button>
+        </div>
 
-        <main class="produtos-vitrine">
+        <div class="acesso menu-direito">
+            <button onClick="window.location.href = baseURL + '/login.html'">login</button>
+            <button onClick="window.location.href = baseURL + '/cadastro.html'">cadastro</button>
+        </div>
+        <div class="meus-pedidos menu-direito">
+            <button onClick="window.location.href = baseURL + '/meus_pedidos.html'">Meus pedidos</button>
+            <button onClick="window.location.href = baseURL + '/carrinho.html'">Carrinho</button>
+        </div>
 
-        </main>
+        <div class="pesquisa-livros">
+            <input type="text" placeholder="Pesquisar por nome, editora ou autor" id='barra-pesquisa'>
+            <button
+                onClick="window.location.href = baseURL + '/pesquisa.html?pesquisa=' + document.querySelector('#barra-pesquisa').value">Pesquisar</button>
+        </div>
+    </nav>
 
-    </body>
-    <script src="resources/scripts/common.js"></script>
-    <script src="resources/scripts/livro.js"></script>
+    <h1 class="nome-livraria"></h1> <!-- nome livraria -->
 
-    <script type="text/javascript">
-        const url = new URL(window.location.href)
-        const pesquisa = url.searchParams.get("pesquisa")
-        
-        pesquisarLivros(pesquisa)
+    <main class="produtos-vitrine">
+
+    </main>
+
+</body>
+<script src="resources/scripts/common.js"></script>
+<script src="resources/scripts/livro.js"></script>
+
+<script type="text/javascript">
+    const url = new URL(window.location.href)
+    const pesquisa = url.searchParams.get("pesquisa")
+
+    pesquisarLivros(pesquisa)
         .then(result => {
             const $vitrine = document.querySelector('.produtos-vitrine')
-            if (result){
+            if (result) {
                 result.forEach(produto => {
                     const $wrapper = document.createElement('div')
                     const $imagem = document.createElement('img')
@@ -60,7 +68,7 @@
 
                     $imagem.setAttribute('src', produto.capa)
                     $titulo.innerHTML = produto.titulo
-                    $resumo.innerHTML = produto.resumo 
+                    $resumo.innerHTML = produto.resumo
                     $preco.innerHTML = 'R$ ' + produto.preco
 
                     $wrapper.classList.add('item-pesquisa-vitrine')
@@ -71,10 +79,11 @@
                     }
 
                 });
-            }else{
+            } else {
                 $vitrine.innerHTML = 'Nenhum resultado'
             }
         })
 
-    </script>
+</script>
+
 </html>

@@ -28,7 +28,24 @@ public class CarrinhoController {
         }
     }
     
+    public void remover(Cliente cliente, ItemCarrinho item){        
+        for (ItemCarrinho itemCarrinho : cliente.getCarrinho().getItens()){
+            if (itemCarrinho.equals(item)){
+                cliente.getCarrinho().removeItem(item);
+                return;
+            }
+        }
+    }
+    
     public List<ItemCarrinho> listarItens(Cliente cliente){
         return cliente.getCarrinho().getItens();
+    }
+    
+    public void alterarQuantidade (Cliente cliente, Livro produto, int quantidade){
+        for (ItemCarrinho item : cliente.getCarrinho().getItens()){
+            if(item.getProduto().equals(produto)){
+                item.setQuantidade(quantidade);
+            }
+        }
     }
 }

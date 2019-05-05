@@ -1,50 +1,58 @@
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <link rel="stylesheet" href="resources/css/style.css">
-        <link rel="stylesheet" href="resources/css/pedidos.css">
-        <title>Livraria</title>
-    </head>
-    <body>
-        <nav class="menu">
-            <div class="acesso menu-direito">
-                <button onClick="window.location.href = baseURL + '/login.html'">login</button>
-                <button onClick="window.location.href = baseURL + '/cadastro.html'">cadastro</button>
-            </div>
-            <div class="meus-pedidos menu-direito">
-                <button onClick="window.location.href = baseURL + '/meus_pedidos.html'">Meus pedidos</button>
-            </div>
 
-            <div class="pesquisa-livros">
-                <input type="text" placeholder="Pesquisar por nome, editora ou autor" />
-                <button>Pesquisar</button>
-            </div>
-        </nav>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="resources/css/meus_pedidos.css">
+    <title>Livraria</title>
+</head>
 
-        <h1 class="nome-livraria"></h1> <!-- nome livraria -->
+<body>
+    <nav class="menu">
+        <div class="redirecionar-home">
+            <button onClick="window.location.href = baseURL + '/'">Home</button>
+        </div>
 
-        <main class="">
-            <div class="pedidos">
+        <div class="acesso menu-direito">
+            <button onClick="window.location.href = baseURL + '/login.html'">login</button>
+            <button onClick="window.location.href = baseURL + '/cadastro.html'">cadastro</button>
+        </div>
+        <div class="meus-pedidos menu-direito">
+            <button onClick="window.location.href = baseURL + '/meus_pedidos.html'">Meus pedidos</button>
+            <button onClick="window.location.href = baseURL + '/carrinho.html'">Carrinho</button>
+        </div>
 
-            </div>
-        </main>
+        <div class="pesquisa-livros">
+            <input type="text" placeholder="Pesquisar por nome, editora ou autor" id='barra-pesquisa'>
+            <button
+                onClick="window.location.href = baseURL + '/pesquisa.html?pesquisa=' + document.querySelector('#barra-pesquisa').value">Pesquisar</button>
+        </div>
+    </nav>
 
-    </body>
-    <script src="resources/scripts/common.js"></script>
-    <script src="resources/scripts/pedido.js"></script>
+    <h1 class="nome-livraria"></h1> <!-- nome livraria -->
 
-    <script type="text/javascript">
-        getPedidos(sessionStorage.getItem('logado'))
+    <main class="">
+        <div class="pedidos">
+
+        </div>
+    </main>
+
+</body>
+<script src="resources/scripts/common.js"></script>
+<script src="resources/scripts/pedido.js"></script>
+
+<script type="text/javascript">
+    getPedidos(sessionStorage.getItem('logado'))
         .then(result => {
             const $pedidos = document.querySelector('.pedidos')
-            if (result === null || result === [] || result === undefined){
+            if (result === null || result === [] || result === undefined) {
                 const $aviso = document.createElement('h3')
                 $aviso.innerHTML = 'Sem pedidos'
 
                 $pedidos.appendChild($aviso)
-            }else{
+            } else {
                 console.log(result)
                 result.forEach(pedido => {
                     const $pedido = document.createElement('div')
@@ -69,18 +77,18 @@
 
                     $pedido.appendChild($wrapTexto)
                     $pedido.appendChild($itens)
-                    
+
                     $pedidos.appendChild($pedido)
 
                     $pedido.classList.add('pedido')
 
                     $estado.innerHTML = 'Estado do pedido: ' + pedido.estado
-                    $dataCriacao.innerHTML = 'Criação do pedido ' +  (pedido.dataCriacao || 'Não iniciado')
+                    $dataCriacao.innerHTML = 'Criação do pedido ' + (pedido.dataCriacao || 'Não iniciado')
                     $dataEmAtendimento.innerHTML = 'Em atendimento ' + (pedido.dataEmAtendimento || 'Não iniciado')
                     $entregue.innerHTML = 'Data de entrega: ' + (pedido.entregue || 'Não iniciado')
                     $codigo.innerHTML = 'Código do pedido: ' + pedido.codigo
 
-                    pedido.produtos.forEach( ({ produto }) => {
+                    pedido.produtos.forEach(({ produto }) => {
 
                         const $item = document.createElement('img')
                         $item.setAttribute('src', produto.capa)
@@ -92,5 +100,6 @@
             }
         })
 
-    </script>
+</script>
+
 </html>
