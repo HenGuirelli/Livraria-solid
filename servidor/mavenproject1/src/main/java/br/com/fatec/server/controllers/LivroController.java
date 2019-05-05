@@ -35,7 +35,18 @@ public class LivroController {
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("nome/{nome}")
-    public List<Livro> getLivrosPorNome(@PathParam("editora") String nome){
+    public List<Livro> getLivrosPorNome(@PathParam("nome") String nome){
         return livroController.getLivrosPorNome(nome);
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("nome/{nome}/exato")
+    public Livro getLivrosPorNomeExato(@PathParam("nome") String nome){
+        try {
+            return livroController.getLivrosPorNome(nome).get(0);
+        }catch (Exception ex){
+            return null;
+        }
     }
 }

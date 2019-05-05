@@ -76,13 +76,18 @@ class ValoresIniciais {
         autor = new Autor();
         autor.setNome("Robert C. Martin");
         livro.addAutor(autor);
+        livro.setResumo(Descricao.CODIGO_LIMPO);
+        
         livros.add(livro);
+        
+        // ---------------- PADRÃO DE PROJETO ------------------
         
         livro = new Livro();
         livro.setTitulo("Padrões de Projetos: Soluções Reutilizáveis de Software Orientados a Objetos ");
         livro.setCapa("padroesdeprojeto1.jpg");
         livro.setPreco(103.90f);
         livro.setCategoria("educativo");
+        livro.setResumo(Descricao.PADROES_DE_PROJETO1);
         
         autor = new Autor();
         autor.setNome("Erich Gamma");
