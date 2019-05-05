@@ -5,3 +5,7 @@ const getLivros = async (limite = undefined) => {
     }
     return result
 }
+
+const getLivroEspecifico = async nome => {
+    return await GET(baseURLRest + '/livro/nome/' + nome + '/exato')
+}

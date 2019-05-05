@@ -9,10 +9,14 @@
     </head>
     <body>
         <nav class="menu">
-            <div class="acesso">
+            <div class="acesso menu-direito">
                 <button onClick="window.location.href = baseURL + '/login.html'">login</button>
                 <button onClick="window.location.href = baseURL + '/cadastro.html'">cadastro</button>
             </div>
+            <div class="meus-pedidos menu-direito">
+                <button>Meus pedidos</button>
+            </div>
+
             <div class="pesquisa-livros">
                 <input type="text" placeholder="Pesquisar por nome, editora ou autor" />
                 <button>Pesquisar</button>
@@ -26,8 +30,8 @@
         </main>
 
     </body>
-    <script src="resources/common.js"></script>
-    <script src="resources/livro.js"></script>
+    <script src="resources/scripts/common.js"></script>
+    <script src="resources/scripts/livro.js"></script>
 
     <script type="text/javascript">
         const $vitrine = document.querySelector('.produtos-vitrine')
@@ -52,6 +56,12 @@
 
             $imagem.setAttribute('src', produto.capa)
             $imagem.classList.add('imagem-vitrine')
+
+            $wrapper.produto = produto
+            $wrapper.onclick = () => {
+                localStorage.setItem('produto', JSON.stringify(produto))
+                window.location.href = baseURL + '/produto.html'
+            }
 
             return $wrapper
         }

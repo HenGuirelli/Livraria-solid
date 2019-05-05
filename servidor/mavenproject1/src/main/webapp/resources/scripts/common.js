@@ -4,11 +4,23 @@ const baseURL = "http://localhost:9999/mavenproject1";
 const baseURLRest = baseURL + '/rest'
 
 const logado = false
-const dadosComum = {}
 
 const $nomeLivraria = document.querySelector(".nome-livraria")
 if ($nomeLivraria)
     $nomeLivraria.innerHTML = NOME_LIVRARIA
+
+const $acesso = document.querySelector('.acesso')
+const $meusPedidos = document.querySelector('.meus-pedidos')
+
+if (sessionStorage.getItem('logado')){
+    $meusPedidos.classList.remove('nao-visivel')
+    $acesso.classList.add('nao-visivel')
+}else {
+    $acesso.classList.remove('nao-visivel')
+    $meusPedidos.classList.add('nao-visivel')
+}
+
+
 
 const GET = async url => {
     const result = await fetch(url)

@@ -1,0 +1,8 @@
+.area-produto-wrapper {
+    display: flex;
+    margin-top: 40px;
+}
+
+.section-produto {
+    width: fit-content;
+}
