@@ -4,6 +4,7 @@ import br.com.fatec.model.livro.Livro;
 import br.com.fatec.model.pedido.Pedido;
 import br.com.fatec.model.usuario.Cliente;
 import java.util.List;
+import javax.ws.rs.Consumes;
 import javax.ws.rs.GET;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
@@ -59,17 +60,40 @@ public class PedidosController {
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/alterar/{codigo}/enviado")
-    public ResultProcesso alterarEstadoPedidoEnviado(@PathParam("codigo") String codigoPedido) {
-        controller.alterarEstadoPedidoEnviado(codigoPedido);
-        return ResultProcesso.getSucesso();
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/alterar/enviado")
+    public ResultProcesso alterarEstadoPedidoEnviado(AlteracaoPedidoRequest body) {
+        try {
+            controller.alterarEstadoPedidoEnviado(body.getCodigo());
+            return ResultProcesso.getSucesso();
+        } catch (Exception ex) {
+            return ResultProcesso.getFalha();
+        }
     }
 
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
-    @Path("/alterar/{codigo}/entregue")
-    public ResultProcesso alterarEstadoPedidoEntregue(@PathParam("codigo") String codigoPedido) {
-        controller.alterarEstadoPedidoEntregue(codigoPedido);
-        return ResultProcesso.getSucesso();
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/alterar/entregue")
+    public ResultProcesso alterarEstadoPedidoEntregue(AlteracaoPedidoRequest body) {
+        try {
+            controller.alterarEstadoPedidoEntregue(body.getCodigo());
+            return ResultProcesso.getSucesso();
+        } catch (Exception ex) {
+            return ResultProcesso.getFalha();
+        }
     }
+}
+
+class AlteracaoPedidoRequest {
+    private String codigo;
+
+    public String getCodigo() {
+        return codigo;
+    }
+
+    public void setCodigo(String codigo) {
+        this.codigo = codigo;
+    }
+    
 }

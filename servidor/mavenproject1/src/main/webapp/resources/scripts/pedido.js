@@ -5,5 +5,5 @@ const getPedidos = async cliente => {
 }
 
 const alterarEstadoPedido = async (codigo, estado) => {
-    return await PUT(baseURLRest + `/pedidos/alterar/${codigo}/${estado}`)
+    return await PUT(baseURLRest + '/pedidos/alterar/' + estado, { codigo })
 }

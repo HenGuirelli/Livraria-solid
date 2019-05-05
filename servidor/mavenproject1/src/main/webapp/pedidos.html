@@ -43,11 +43,12 @@
 <script src="resources/scripts/common.js"></script>
 <script src="resources/scripts/pedido.js"></script>
 <script type="text/javascript">
+    const $pedidos = document.querySelector('.pedidos')
 
     const atualizarJanela = () => {
+        $pedidos.innerHTML = ''
         getPedidos()
         .then(result => {
-            const $pedidos = document.querySelector('.pedidos')
             result.forEach(pedido => {
                 const $pedido = document.createElement('div')
                 const $wrapTexto = document.createElement('div')

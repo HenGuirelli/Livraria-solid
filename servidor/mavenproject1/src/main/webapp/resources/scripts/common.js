@@ -42,13 +42,12 @@ const PUT = async (url, body) => {
     const result = await fetch(url, {
         method: 'PUT',
         headers: {
-            'Content-Type': 'application/json',
-            'Accept': 'application/json',
-            "Access-Control-Allow-Origin" : "*", 
-            "Access-Control-Allow-Credentials" : true 
+            'Content-Type': 'application/json'
         },
         body: JSON.stringify(body)
     })
     console.log('PUT:', body)
-    return result.json();
+    try {
+        return result.json();
+    }catch (e) { return result }
 }
