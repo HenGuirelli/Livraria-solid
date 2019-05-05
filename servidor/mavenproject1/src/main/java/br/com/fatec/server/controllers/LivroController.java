@@ -6,6 +6,7 @@ import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Path("livro")
@@ -31,7 +32,7 @@ public class LivroController {
     public List<Livro> getLivrosPorEditora(@PathParam("editora") String editora){
         return livroController.getLivrosPorEditora(editora);
     }
-        
+
     @GET
     @Produces(MediaType.APPLICATION_JSON)
     @Path("nome/{nome}")
@@ -48,5 +49,12 @@ public class LivroController {
         }catch (Exception ex){
             return null;
         }
+    }
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("buscar")
+    public List<Livro> buscarLivros(@QueryParam("pesquisa") String pesquisa) {        
+        return livroController.buscarLivro(pesquisa);
     }
 }

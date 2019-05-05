@@ -20,8 +20,6 @@ if (sessionStorage.getItem('logado')){
     $meusPedidos.classList.add('nao-visivel')
 }
 
-
-
 const GET = async url => {
     const result = await fetch(url)
     return result.json();
@@ -36,5 +34,6 @@ const POST = async (url, body) => {
         },
         body: JSON.stringify(body)
     })
+    console.log('POST: ', body)
     return result.json();
 }

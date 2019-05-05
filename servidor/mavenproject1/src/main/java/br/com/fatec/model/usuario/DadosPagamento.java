@@ -1,13 +1,23 @@
 package br.com.fatec.model.usuario;
 
+import br.com.fatec.enums.FormaPagamento;
 import java.util.Date;
 
 public class DadosPagamento {
     private String rua;
     private int numeroCasa;
-    private int numeroCartao;
-    private int digitoCartao;
+    private String numeroCartao;
+    private String digitoCartao;
     private Date vencimento;
+    private FormaPagamento formaPagamento;
+
+    public FormaPagamento getFormaPagameno() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagameno(FormaPagamento formaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }
 
     public String getRua() {
         return rua;
@@ -25,19 +35,19 @@ public class DadosPagamento {
         this.numeroCasa = numeroCasa;
     }
 
-    public int getNumeroCartao() {
+    public String getNumeroCartao() {
         return numeroCartao;
     }
 
-    public void setNumeroCartao(int numeroCartao) {
+    public void setNumeroCartao(String numeroCartao) {
         this.numeroCartao = numeroCartao;
     }
 
-    public int getDigitoCartao() {
+    public String getDigitoCartao() {
         return digitoCartao;
     }
 
-    public void setDigitoCartao(int digitoCartao) {
+    public void setDigitoCartao(String digitoCartao) {
         this.digitoCartao = digitoCartao;
     }
 

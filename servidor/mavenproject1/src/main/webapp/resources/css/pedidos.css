@@ -1,0 +1,9 @@
+.pedido > * {
+    display: block
+}
+
+.pedido {
+    border: solid 1px;
+    margin-top: 1em;
+    padding: 1em;
+}

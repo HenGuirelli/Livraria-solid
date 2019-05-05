@@ -5,6 +5,7 @@ import br.com.fatec.DAO.LivroDAO;
 import br.com.fatec.model.livro.Livro;
 import br.com.fatec.model.pedido.Pedido;
 import br.com.fatec.model.usuario.Cliente;
+import br.com.fatec.model.usuario.DadosPagamento;
 import java.util.List;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -29,7 +30,7 @@ public class VendaController {
         try {
             Pedido pedido = controller.vender(cliente.getCarrinho(), cliente);
             processo.setSuccess(true);
-            processo.setMensagem("código do pedido: " + pedido.getCodigo());
+            processo.setMensagem(pedido.getCodigo());
 
             // esvazia o carrinho
             cliente.getCarrinho().esvaziar();
@@ -59,7 +60,7 @@ public class VendaController {
 
         Pedido pedido = controller.vender(l.get(0), c, request.getQuantidade());
         result.setSuccess(true);
-        result.setMensagem("código do pedido: " + pedido.getCodigo());
+        result.setMensagem(pedido.getCodigo());
         return result;
     }
 }
@@ -69,7 +70,25 @@ class VendaLivroRequest {
     private String cliente;
     private String livro;
     private int quantidade;
+    private DadosPagamento dadosPagamento;
+    private String formaPagamento;
 
+    public String getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagamento(String formaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }
+
+    public DadosPagamento getDadosPagamento() {
+        return dadosPagamento;
+    }
+
+    public void setDadosPagamento(DadosPagamento dadosPagamento) {
+        this.dadosPagamento = dadosPagamento;
+    }
+    
     public int getQuantidade() {
         return quantidade;
     }
@@ -98,6 +117,24 @@ class VendaLivroRequest {
 class VendaCarrinhoRequest {
 
     private String cliente;
+    private DadosPagamento dadosPagamento;
+    private String formaPagamento;
+
+    public String getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagamento(String formaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }
+
+    public DadosPagamento getDadosPagamento() {
+        return dadosPagamento;
+    }
+
+    public void setDadosPagamento(DadosPagamento dadosPagamento) {
+        this.dadosPagamento = dadosPagamento;
+    }
 
     public String getCliente() {
         return cliente;

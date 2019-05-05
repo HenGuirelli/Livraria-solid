@@ -6,3 +6,19 @@
 .section-produto {
     width: fit-content;
 }
+
+#comprar-popup > form > * {
+    display: block;
+}
+
+#comprar-popup {
+    position: absolute; 
+    background-color: var(--main-color);
+    margin: 0 auto;
+}
+
+
+#comprar-popup form,
+#comprar-popup form label {
+    background-color: rgba(0, 0, 0, 0);
+}

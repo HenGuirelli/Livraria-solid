@@ -9,3 +9,7 @@ const getLivros = async (limite = undefined) => {
 const getLivroEspecifico = async nome => {
     return await GET(baseURLRest + '/livro/nome/' + nome + '/exato')
 }
+
+const pesquisarLivros = async (nome) => {
+    return await GET(baseURLRest + '/livro/buscar/?pesquisa=' + nome)
+}

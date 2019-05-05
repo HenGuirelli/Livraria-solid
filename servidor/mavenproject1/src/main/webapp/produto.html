@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="resources/css/style.css">
-    <link rel="stylesheet" href="resources/css/home.css">
     <link rel="stylesheet" href="resources/css/produto.css">
     <title>Livraria</title>
 </head>
@@ -29,6 +28,37 @@
     <h1 class="nome-livraria"></h1> <!-- nome livraria -->
 
     <main class="area-produto">
+        <div id="comprar-popup" class="nao-visivel">
+            <form>
+                <label>
+                    <span>Rua:</span>
+                    <input type="text" required id="rua-venda">
+                </label>
+
+                <label>
+                    <span>Numero:</span>
+                    <input type="number" required id="numero-venda">
+                </label>
+
+                <label>
+                    <span>Numero do cartão:</span>
+                    <input type="number" required id="numero-cartao-venda">
+                </label>
+
+                <label>
+                    <span>Validade:</span>
+                    <input type="date" required id="validade-venda">
+                </label>
+
+                <label>
+                    <span>Digito: </span>
+                    <input type="number" required id="digito-venda">
+                </label>
+
+                <button onClick="eventoCancelarCompra(event)">Cancelar</button>
+                <button onClick="eventoConfirmarCompra(event)">Confirmar</button>
+            </form>
+        </div>
         <div class="area-produto-wrapper">
             <div class="produto-imagem section-produto">
                 <img id="imagem-produto">
@@ -48,18 +78,19 @@
                     <option value="">A vista</option>
                     <option value="">Parcelado</option>
                 </select>
-                <button>Comprar</button>
+                <br />
+                <button onClick="eventoComprar()">Comprar</button>
+                <button>Adicionar ao carrinho</button>
             </section>
         </div>
     </main>
-
 </body>
+
 <script src="resources/scripts/common.js"></script>
-<script src="resources/scripts/livro.js"></script>
+<script src="resources/scripts/venda.js"></script>
 
 <script type="text/javascript">
     const produto = JSON.parse(localStorage.getItem('produto'))
-    console.log(produto)
 
     const $nomeProduto = document.querySelector('#nome-produto')
     const $precoProduto = document.querySelector('#preco-produto')
@@ -72,8 +103,33 @@
         $resumoProduto.innerHTML = produto.resumo
         $imagemProduto.setAttribute('src', produto.capa)
     }
-        //const livro = getLivroEspecifico(dadosComum['produto'])
-        //console.log(livro)
+
+    const $comprarPopup = document.querySelector('#comprar-popup')
+
+    const eventoComprar = (event) => {
+        $comprarPopup.classList.remove('nao-visivel')
+    }
+
+    const eventoCancelarCompra = (event) => {
+        try { event.preventDefault() } catch (e) { }
+        $comprarPopup.classList.add('nao-visivel')
+    }
+
+    const eventoConfirmarCompra = (event) => {
+        try { event.preventDefault() } catch (e) { }
+        const rua = document.querySelector("#rua-venda").value
+        const numeroCasa = document.querySelector("#numero-venda").value
+        const numeroCartao = document.querySelector("#numero-cartao-venda").value
+        const vencimento = document.querySelector("#validade-venda").value
+        const digitoCartao = document.querySelector("#digito-venda").value
+
+        venderLivro(sessionStorage.getItem('logado'), 1, produto.titulo, { rua, numeroCasa, numeroCartao, vencimento, digitoCartao })
+            .then(result => {
+                console.log(result)
+            })
+
+    }
+
 </script>
 
 </html>

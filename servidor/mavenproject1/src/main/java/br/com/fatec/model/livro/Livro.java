@@ -34,6 +34,10 @@ public class Livro {
     public void removerAutor(Autor autor) {
         this.autores.remove(autor);
     }
+    
+    public List<Autor> getAutores(){
+        return autores;
+    }
 
     public void vender(Cliente cliente, int quantidade) {
         // atualiza model
