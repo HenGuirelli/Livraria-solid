@@ -27,9 +27,23 @@ public class ResultProcesso {
         return sucesso;
     }
     
-    public static ResultProcesso getFalha(){
+    public static ResultProcesso getSucesso(String mensagem){
         ResultProcesso sucesso = new ResultProcesso();
-        sucesso.setSuccess(false);
+        sucesso.setSuccess(true);
+        sucesso.setMensagem(mensagem);
         return sucesso;
+    }
+    
+    public static ResultProcesso getFalha(){
+        ResultProcesso processo = new ResultProcesso();
+        processo.setSuccess(false);
+        return processo;
+    }
+    
+    public static ResultProcesso getFalha(String mensagem){
+        ResultProcesso processo = new ResultProcesso();
+        processo.setSuccess(false);
+        processo.setMensagem(mensagem);
+        return processo;
     }
 }

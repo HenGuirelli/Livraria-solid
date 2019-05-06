@@ -1,6 +1,5 @@
 package br.com.fatec.server.controllers;
 
-import br.com.fatec.model.livro.Livro;
 import br.com.fatec.model.pedido.Pedido;
 import br.com.fatec.model.usuario.Cliente;
 import java.util.List;
@@ -95,5 +94,4 @@ class AlteracaoPedidoRequest {
     public void setCodigo(String codigo) {
         this.codigo = codigo;
     }
-    
 }

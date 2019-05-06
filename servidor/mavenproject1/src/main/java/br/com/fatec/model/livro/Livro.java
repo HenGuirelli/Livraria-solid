@@ -1,6 +1,8 @@
 package br.com.fatec.model.livro;
 
+import br.com.fatec.DAO.FornecedorDAO;
 import br.com.fatec.DAO.LivroDAO;
+import br.com.fatec.model.fornecedor.Fornecedor;
 import br.com.fatec.model.usuario.Cliente;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,30 @@ public class Livro {
         // atualiza no banco de dados
         LivroDAO dao = LivroDAO.getInstance();
         dao.atualizarQuantidade(this, novaQuantidade);
+    }
+    
+    public void comprar(int quantidade) {
+        FornecedorDAO daoFornecedor = FornecedorDAO.getInstance();
+        List<Fornecedor> fornecedores = daoFornecedor.getTodosFornecedores();
+        
+        Fornecedor fornecedor = procurarFornecedorComProduto(this.getTitulo(), fornecedores);
+        fornecedor.comprar(this.getTitulo(), quantidade);
+        
+        // atualiza no banco de dados
+        LivroDAO dao = LivroDAO.getInstance();
+        this.setQuantidade(this.getQuantidade() + quantidade);
+        dao.atualizarQuantidade(this, this.getQuantidade());
+    }
+    
+    private Fornecedor procurarFornecedorComProduto(String nomeProduto, List<Fornecedor> fornecedores){
+        for(Fornecedor fornecedor : fornecedores){
+            for(Livro produto : fornecedor.getEstoque()){
+                if(produto.getTitulo().equals(nomeProduto)){
+                    return fornecedor;
+                }
+            }
+        }
+        return null;
     }
 
     @Override

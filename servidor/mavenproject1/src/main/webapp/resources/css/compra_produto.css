@@ -1,0 +1,16 @@
+.wrapper-fornecedor {
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrapper-fornecedor img {
+    max-width: 100px;
+    height: 150px;
+}
+
+.wrapper-fornecedor button {
+    display: block;
+    padding: 10px;
+    background-color: var(--main-color);
+    color: var(--secondary-color);
+}

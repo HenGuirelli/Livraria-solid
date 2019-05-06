@@ -27,6 +27,14 @@ public class LivroDAO extends DAO<Livro> {
         return super.filter("titulo", nome);
     }
    
+    public Livro getUmLivroPorNome(String nome){
+        try {
+            return getLivroPorNome(nome).get(0);
+        }catch(Exception e){
+            return null;
+        }
+    }
+    
     public List<Livro> getLivroPorEditora(String editora){
         return super.filter("editora", editora);
     }
