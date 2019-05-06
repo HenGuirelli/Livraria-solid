@@ -89,6 +89,9 @@
         .then(result => {
             result.forEach(fornecedor => {
                 const $fornecedor = getVitrineFornecedor(fornecedor)
+                const $nomeFornecedor = document.createElement('h2')
+                $nomeFornecedor.innerHTML = fornecedor.nome
+                $main.appendChild($nomeFornecedor)
                 $main.appendChild($fornecedor)
             })
         })

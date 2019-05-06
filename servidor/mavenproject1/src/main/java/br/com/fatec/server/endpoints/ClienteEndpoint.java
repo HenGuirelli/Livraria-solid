@@ -1,4 +1,4 @@
-package br.com.fatec.server.controllers;
+package br.com.fatec.server.endpoints;
 
 import br.com.fatec.DAO.ClienteDAO;
 import br.com.fatec.model.usuario.Cliente;
@@ -10,7 +10,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Path("cliente")
-public class ClienteController {
+public class ClienteEndpoint {
     private br.com.fatec.controller.ClienteController controller = new br.com.fatec.controller.ClienteController();
     
     @GET

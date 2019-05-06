@@ -1,4 +1,4 @@
-package br.com.fatec.server.controllers;
+package br.com.fatec.server.endpoints;
 
 import br.com.fatec.model.livro.Livro;
 import javax.ws.rs.Path;
@@ -10,7 +10,7 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 
 @Path("livro")
-public class LivroController {
+public class LivroEndpoint {
     private final br.com.fatec.controller.LivroController livroController = new br.com.fatec.controller.LivroController();
     
     @GET

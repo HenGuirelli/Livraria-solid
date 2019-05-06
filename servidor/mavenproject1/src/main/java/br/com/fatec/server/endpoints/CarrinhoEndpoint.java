@@ -1,4 +1,4 @@
-package br.com.fatec.server.controllers;
+package br.com.fatec.server.endpoints;
 
 import br.com.fatec.DAO.ClienteDAO;
 import br.com.fatec.DAO.LivroDAO;
@@ -16,7 +16,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Path("carrinho")
-public class CarrinhoController {
+public class CarrinhoEndpoint {
 
     private br.com.fatec.controller.CarrinhoController controller = new br.com.fatec.controller.CarrinhoController();
 
@@ -24,16 +24,16 @@ public class CarrinhoController {
     @Path("adicionar")
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public ResultProcesso addItem(CarrinhoRequest body) {
+    public ResultEndpoint addItem(CarrinhoRequest body) {
         Cliente cliente = ClienteDAO.getInstance().getCliente(body.getCliente());
         List<Livro> livros = LivroDAO.getInstance().getLivroPorNome(body.getLivro());
 
         if (livros != null && livros.size() > 0) {
             Livro livro = livros.get(0);
             controller.add(cliente, livro);
-            return ResultProcesso.getSucesso();
+            return ResultEndpoint.getSucesso();
         } else {
-            ResultProcesso result = new ResultProcesso();
+            ResultEndpoint result = new ResultEndpoint();
             result.setSuccess(false);
             result.setMensagem("Livro de nome " + body.getLivro() + " não encontrado");
             return result;
@@ -55,25 +55,25 @@ public class CarrinhoController {
     @Path("/alterar/quantidade")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public ResultProcesso alterarQuantidade(AlterarQuantidadeRequest body) {
+    public ResultEndpoint alterarQuantidade(AlterarQuantidadeRequest body) {
         Cliente cliente = ClienteDAO.getInstance().getCliente(body.getCliente());
         Livro produto = LivroDAO.getInstance().getLivroPorNome(body.getProduto()).get(0);
         controller.alterarQuantidade(cliente, produto, body.getQuantidade());
-        return ResultProcesso.getSucesso();
+        return ResultEndpoint.getSucesso();
     }
 
     @PUT
     @Path("remover")
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
-    public ResultProcesso removerItem(RemoverItemRequest body) {
+    public ResultEndpoint removerItem(RemoverItemRequest body) {
         try {
             Cliente cliente = ClienteDAO.getInstance().getCliente(body.getCliente());
             Livro produto = LivroDAO.getInstance().getLivroPorNome(body.getProduto()).get(0);
             controller.remover(cliente, produto);
-            return ResultProcesso.getSucesso();
+            return ResultEndpoint.getSucesso();
         } catch (Exception ex) {
-            ResultProcesso processo = new ResultProcesso();
+            ResultEndpoint processo = new ResultEndpoint();
             processo.setSuccess(false);
             processo.setMensagem(ex.getMessage());
             return processo;

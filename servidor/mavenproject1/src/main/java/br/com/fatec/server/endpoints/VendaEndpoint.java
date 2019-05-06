@@ -1,4 +1,4 @@
-package br.com.fatec.server.controllers;
+package br.com.fatec.server.endpoints;
 
 import br.com.fatec.DAO.ClienteDAO;
 import br.com.fatec.DAO.LivroDAO;
@@ -14,7 +14,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Path("venda")
-public class VendaController {
+public class VendaEndpoint {
 
     private br.com.fatec.controller.VendaController controller = new br.com.fatec.controller.VendaController();
 
@@ -22,10 +22,10 @@ public class VendaController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("vender/carrinho")
-    public ResultProcesso vender(VendaCarrinhoRequest request) {
-        Cliente cliente = new ClienteController().getCliente(request.getCliente());
+    public ResultEndpoint vender(VendaCarrinhoRequest request) {
+        Cliente cliente = new ClienteEndpoint().getCliente(request.getCliente());
 
-        ResultProcesso processo = new ResultProcesso();
+        ResultEndpoint processo = new ResultEndpoint();
 
         try {
             Pedido pedido = controller.vender(cliente.getCarrinho(), cliente);
@@ -46,8 +46,8 @@ public class VendaController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("vender/livro")
-    public ResultProcesso vender(VendaLivroRequest request) {
-        ResultProcesso result = new ResultProcesso();
+    public ResultEndpoint vender(VendaLivroRequest request) {
+        ResultEndpoint result = new ResultEndpoint();
 
         Cliente c = ClienteDAO.getInstance().getCliente(request.getCliente());
         List<Livro> l = LivroDAO.getInstance().getLivroPorNome(request.getLivro());

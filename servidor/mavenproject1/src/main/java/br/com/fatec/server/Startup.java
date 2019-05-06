@@ -14,7 +14,7 @@ import br.com.fatec.model.usuario.Usuario;
 public class Startup extends ResourceConfig {
 
     public Startup() {
-        packages("br.com.fatec.server.controllers");
+        packages("br.com.fatec.server.endpoints");
         initDAO();
     }
 

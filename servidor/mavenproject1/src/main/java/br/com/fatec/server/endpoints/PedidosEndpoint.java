@@ -1,4 +1,4 @@
-package br.com.fatec.server.controllers;
+package br.com.fatec.server.endpoints;
 
 import br.com.fatec.model.pedido.Pedido;
 import br.com.fatec.model.usuario.Cliente;
@@ -12,7 +12,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Path("pedidos")
-public class PedidosController {
+public class PedidosEndpoint {
 
     private final br.com.fatec.controller.PedidoController controller = new br.com.fatec.controller.PedidoController();
     private final br.com.fatec.controller.ClienteController clienteController = new br.com.fatec.controller.ClienteController();
@@ -61,12 +61,12 @@ public class PedidosController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/alterar/enviado")
-    public ResultProcesso alterarEstadoPedidoEnviado(AlteracaoPedidoRequest body) {
+    public ResultEndpoint alterarEstadoPedidoEnviado(AlteracaoPedidoRequest body) {
         try {
             controller.alterarEstadoPedidoEnviado(body.getCodigo());
-            return ResultProcesso.getSucesso();
+            return ResultEndpoint.getSucesso();
         } catch (Exception ex) {
-            return ResultProcesso.getFalha();
+            return ResultEndpoint.getFalha();
         }
     }
 
@@ -74,12 +74,12 @@ public class PedidosController {
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
     @Path("/alterar/entregue")
-    public ResultProcesso alterarEstadoPedidoEntregue(AlteracaoPedidoRequest body) {
+    public ResultEndpoint alterarEstadoPedidoEntregue(AlteracaoPedidoRequest body) {
         try {
             controller.alterarEstadoPedidoEntregue(body.getCodigo());
-            return ResultProcesso.getSucesso();
+            return ResultEndpoint.getSucesso();
         } catch (Exception ex) {
-            return ResultProcesso.getFalha();
+            return ResultEndpoint.getFalha();
         }
     }
 }

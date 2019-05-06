@@ -1,4 +1,4 @@
-package br.com.fatec.server.controllers;
+package br.com.fatec.server.endpoints;
 
 import br.com.fatec.DAO.FornecedorDAO;
 import br.com.fatec.model.fornecedor.Fornecedor;
@@ -11,18 +11,18 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
 @Path("compra")
-public class CompraController {
+public class CompraEndpoint {
     private br.com.fatec.controller.CompraController controller = new br.com.fatec.controller.CompraController();
     
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    public ResultProcesso comprarProduto(ComprarProdutoBody body) {
+    public ResultEndpoint comprarProduto(ComprarProdutoBody body) {
         try {
             controller.comprar(body.getNomeProduto(), body.getQuantidade());
-            return ResultProcesso.getSucesso();
+            return ResultEndpoint.getSucesso();
         }catch(Exception ex){
-            return ResultProcesso.getFalha(ex.getMessage());
+            return ResultEndpoint.getFalha(ex.getMessage());
         }
     }
     

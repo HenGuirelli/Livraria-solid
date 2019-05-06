@@ -1,6 +1,6 @@
-package br.com.fatec.server.controllers;
+package br.com.fatec.server.endpoints;
 
-public class ResultProcesso {
+public class ResultEndpoint {
     private boolean success;
     private String mensagem;
     
@@ -21,27 +21,27 @@ public class ResultProcesso {
         this.mensagem = mensagem;
     }
     
-    public static ResultProcesso getSucesso(){
-        ResultProcesso sucesso = new ResultProcesso();
+    public static ResultEndpoint getSucesso(){
+        ResultEndpoint sucesso = new ResultEndpoint();
         sucesso.setSuccess(true);
         return sucesso;
     }
     
-    public static ResultProcesso getSucesso(String mensagem){
-        ResultProcesso sucesso = new ResultProcesso();
+    public static ResultEndpoint getSucesso(String mensagem){
+        ResultEndpoint sucesso = new ResultEndpoint();
         sucesso.setSuccess(true);
         sucesso.setMensagem(mensagem);
         return sucesso;
     }
     
-    public static ResultProcesso getFalha(){
-        ResultProcesso processo = new ResultProcesso();
+    public static ResultEndpoint getFalha(){
+        ResultEndpoint processo = new ResultEndpoint();
         processo.setSuccess(false);
         return processo;
     }
     
-    public static ResultProcesso getFalha(String mensagem){
-        ResultProcesso processo = new ResultProcesso();
+    public static ResultEndpoint getFalha(String mensagem){
+        ResultEndpoint processo = new ResultEndpoint();
         processo.setSuccess(false);
         processo.setMensagem(mensagem);
         return processo;
