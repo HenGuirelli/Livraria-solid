@@ -1,17 +1,18 @@
 package br.com.fatec.model.carrinho;
 
+import br.com.fatec.model.produto.Negociavel;
 import br.com.fatec.model.produto.Produto;
 import java.util.Objects;
 
 public class ItemCarrinho {
-    private Produto produto;
+    private Negociavel produto;
     private int quantidade = 1;
 
-    public Produto getProduto() {
+    public Negociavel getProduto() {
         return produto;
     }
 
-    public void setProduto(Produto produto) {
+    public void setProduto(Negociavel produto) {
         this.produto = produto;
     }
 

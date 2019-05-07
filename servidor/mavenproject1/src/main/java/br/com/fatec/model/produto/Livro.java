@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Livro extends Produto {
+public class Livro extends Produto implements Negociavel {
   
     private String editora;    
     private List<Autor> autores;
