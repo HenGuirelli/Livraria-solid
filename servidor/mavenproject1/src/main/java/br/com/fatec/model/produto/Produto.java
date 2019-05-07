@@ -9,6 +9,8 @@ public abstract class Produto {
     private String resumo;
     private int quantidade = 20;
     private boolean esgotado;
+    private boolean promocao;
+    private float percentDesconto;
 
     static final String PATH_IMAGEM = "resources/images/";
 
@@ -17,6 +19,22 @@ public abstract class Produto {
     }
     
     public abstract void vender(int quantidade);
+
+    public boolean isPromocao() {
+        return promocao;
+    }
+
+    public void setPromocao(boolean promocao) {
+        this.promocao = promocao;
+    }
+
+    public float getPercentDesconto() {
+        return percentDesconto;
+    }
+
+    public void setPercentDesconto(float percentDesconto) {
+        this.percentDesconto = percentDesconto;
+    }
     
     public String getTitulo() {
         return titulo;
