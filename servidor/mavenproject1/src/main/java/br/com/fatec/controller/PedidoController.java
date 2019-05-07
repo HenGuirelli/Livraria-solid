@@ -2,6 +2,7 @@ package br.com.fatec.controller;
 
 import br.com.fatec.DAO.PedidoDAO;
 import br.com.fatec.enums.EstadoPedido;
+import br.com.fatec.model.Consumivel;
 import br.com.fatec.model.Embalagem;
 import br.com.fatec.model.pedido.Pedido;
 import java.util.List;
@@ -41,6 +42,9 @@ public class PedidoController {
         if (quantidadeProdutos > quantidadeEmbalagem){
             throw new RuntimeException("Quantidade de embalagem insuficiente");
         }
+        
+        Consumivel consumivel = Embalagem.getInstance();
+        consumivel.consumir(quantidadeProdutos);
         
         alterarEstadoPedido(codigo, EstadoPedido.enviado);
     }

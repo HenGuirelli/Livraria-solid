@@ -9,7 +9,7 @@ import br.com.fatec.model.carrinho.ItemCarrinho;
 import br.com.fatec.model.produto.Livro;
 import br.com.fatec.model.pedido.Pedido;
 import br.com.fatec.model.produto.Filme;
-import br.com.fatec.model.produto.Negociavel;
+import br.com.fatec.model.produto.Vendavel;
 import br.com.fatec.model.produto.Produto;
 import br.com.fatec.model.usuario.Cliente;
 
@@ -63,7 +63,7 @@ public class VendaController {
         return pedido;
     }*/
 
-    public Pedido vender(Negociavel negociavel, Cliente cliente, FormaPagamento formaPagamento, int quantidade) {
+    public Pedido vender(Vendavel negociavel, Cliente cliente, FormaPagamento formaPagamento, int quantidade) {
         PedidoDAO dao = PedidoDAO.getInstance();
         ItemCarrinho item = new ItemCarrinho();
         item.setProduto(negociavel);
@@ -80,11 +80,12 @@ public class VendaController {
 
         cliente.addPontos(5);
         persistir(negociavel, quantidade);
-
+        
+        
         return pedido;
     }
     
-    private void persistir(Negociavel negociavel, int quantidade){
+    private void persistir(Vendavel negociavel, int quantidade){
         if (negociavel instanceof Filme){
             FilmeDAO filmeDAO = FilmeDAO.getInstance();
             filmeDAO.atualizarQuantidade((Filme) negociavel,  quantidade);
@@ -107,7 +108,7 @@ public class VendaController {
         PedidoDAO dao = PedidoDAO.getInstance();
         Pedido pedido = new Pedido();
         for (ItemCarrinho item : carrinho.getItens()) {
-            Negociavel livro = item.getProduto();
+            Vendavel livro = item.getProduto();
             livro.vender(item.getQuantidade());
 
             pedido.addProduto(item);

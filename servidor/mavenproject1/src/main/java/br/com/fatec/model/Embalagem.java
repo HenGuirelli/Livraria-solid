@@ -1,6 +1,6 @@
 package br.com.fatec.model;
 
-public class Embalagem {
+public class Embalagem implements Consumivel {
 
     private int quantidade;
 
@@ -22,5 +22,10 @@ public class Embalagem {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    @Override
+    public void consumir(int quantidade) {
+        this.quantidade -= quantidade;
     }
 }

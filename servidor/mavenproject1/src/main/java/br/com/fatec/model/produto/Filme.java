@@ -1,6 +1,6 @@
 package br.com.fatec.model.produto;
 
-public class Filme extends Produto implements Negociavel {
+public class Filme extends Produto implements Vendavel, Compravel {
 
     private int duracao;
     private boolean is3D;
