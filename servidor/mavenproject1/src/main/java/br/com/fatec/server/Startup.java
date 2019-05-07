@@ -1,6 +1,7 @@
 package br.com.fatec.server;
 
 import br.com.fatec.DAO.ContaDAO;
+import br.com.fatec.DAO.FilmeDAO;
 import br.com.fatec.DAO.FornecedorDAO;
 import javax.ws.rs.ApplicationPath;
 import org.glassfish.jersey.server.ResourceConfig;
@@ -26,8 +27,10 @@ public class Startup extends ResourceConfig {
             livroDAO.add(livro);
         }
 
+        FilmeDAO filmeDAO = FilmeDAO.getInstance();
         for (Filme filme : ValoresIniciais.getFilmes()) {
-            livroDAO.add(filme);
+            //livroDAO.add(filme);
+            filmeDAO.add(filme);
         }
         
         ContaDAO contaDAO = ContaDAO.getInstance();

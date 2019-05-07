@@ -1,5 +1,6 @@
 package br.com.fatec.server.endpoints;
 
+import br.com.fatec.DAO.FilmeDAO;
 import br.com.fatec.model.produto.Filme;
 import br.com.fatec.model.produto.Livro;
 import java.util.ArrayList;
@@ -15,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 public class FilmeEndpoint {
     private final br.com.fatec.controller.LivroController livroController = new br.com.fatec.controller.LivroController();
     
-    @GET
+    /*@GET
     @Produces(MediaType.APPLICATION_JSON)
     public List<Filme> getFilmes() {
         List<Filme> filmes = new ArrayList<>();
@@ -26,5 +27,11 @@ public class FilmeEndpoint {
         }
         
         return filmes;
+    }*/    
+    
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    public List<Filme> getFilmes() {
+        return FilmeDAO.getInstance().getAll();
     }
 }

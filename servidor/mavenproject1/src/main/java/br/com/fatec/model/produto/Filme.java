@@ -1,11 +1,12 @@
 package br.com.fatec.model.produto;
 
-public class Filme  extends Livro {
+public class Filme extends Produto {
+
     private int duracao;
     private boolean is3D;
     private boolean legendado;
+    private Diretor diretor;
 
-    
     // getters e setters
     public int getDuracao() {
         return duracao;
@@ -15,6 +16,14 @@ public class Filme  extends Livro {
         this.duracao = duracao;
     }
 
+    public Diretor getDiretor() {
+        return diretor;
+    }
+
+    public void setDiretor(Diretor diretor) {
+        this.diretor = diretor;
+    }
+    
     public boolean isIs3D() {
         return is3D;
     }
@@ -29,5 +38,18 @@ public class Filme  extends Livro {
 
     public void setLegendado(boolean legendado) {
         this.legendado = legendado;
-    }    
+    }
+
+    public void vender(int quantidade) {
+        // atualiza model
+        int novaQuantidade = this.getQuantidade() - quantidade;
+        this.setQuantidade(novaQuantidade);
+        if (this.getQuantidade() == 0) {
+            this.setEsgotado(true);
+        }
+    }
+
+    public void comprar(int quantidade) {
+        this.setQuantidade(this.getQuantidade() + quantidade);
+    }
 }
