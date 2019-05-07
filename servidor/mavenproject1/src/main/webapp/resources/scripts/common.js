@@ -11,13 +11,29 @@ if ($nomeLivraria)
 
 const $acesso = document.querySelector('.acesso')
 const $meusPedidos = document.querySelector('.meus-pedidos')
+const $menuFuncionario = document.querySelector('.menu-funcionario')
 
 if (sessionStorage.getItem('logado')){
-    $meusPedidos.classList.remove('nao-visivel')
-    $acesso.classList.add('nao-visivel')
+    if (sessionStorage.getItem('isFuncionario') === "true"){
+        try {
+            $menuFuncionario.classList.remove('nao-visivel')
+            $meusPedidos.classList.add('nao-visivel')
+        } catch(e){}
+
+    }else {
+        try {
+            $meusPedidos.classList.remove('nao-visivel')
+            $menuFuncionario.classList.add('nao-visivel')        
+        } catch(e){}
+    }
+    try {
+        $acesso.classList.add('nao-visivel')
+    } catch(e){}
 }else {
-    $acesso.classList.remove('nao-visivel')
-    $meusPedidos.classList.add('nao-visivel')
+    try {
+        $acesso.classList.remove('nao-visivel')
+        $meusPedidos.classList.add('nao-visivel')
+    } catch(e){}
 }
 
 const GET = async url => {

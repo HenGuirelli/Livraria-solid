@@ -1,7 +1,9 @@
 package br.com.fatec.server;
 
+import br.com.fatec.model.produto.Autor;
+import br.com.fatec.model.produto.Filme;
+import br.com.fatec.model.produto.Livro;
 import br.com.fatec.model.fornecedor.Fornecedor;
-import br.com.fatec.model.livro.*;
 import br.com.fatec.model.usuario.*;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -14,6 +16,7 @@ class Descricao {
     static final String STARS = "Da mesma autora da série Para todos os garotos que já amei A vida de Isabel Conklin é marcada pelas férias de verão. As outras estações do ano são como um intervalo, dias que passam lentamente enquanto ela espera que o sol lhe traga de volta o que mais ama: o mar, descanso, diversão e, principalmente, Conrad e Jeremiah Fisher. Os garotos da família Fisher sempre estiveram ao lado de Belly em suas aventuras. Conrad é ousado, sombrio, inteligente. Já Jeremiah, é confiável, engraçado, espontâneo. Mesmo sendo tão diferentes, os três constroem uma amizade que parece inabalável. Apenas parece... Tudo muda quando, em uma dessas férias, Conrad demonstra sentir algo por ela. O problema é que Jeremiah faz o mesmo. À medida que os anos passam, Belly sabe que precisará escolher entre os dois e encarar o inevitável: ela vai partir o coração de um deles. Na trilogia Verão, acompanhamos Belly dos 15 aos 24 anos. Em meio a descobertas e mudanças, ela se apaixona, se envolve em um triângulo amo";
     static final String CODIGO_LIMPO = "Mesmo um código ruim pode funcionar. Mas se ele não for limpo, pode acabar com uma empresa de desenvolvimento. Perdem-se a cada ano horas incontáveis e recursos importantes devido a um código mal escrito. O especialista em software, Robert C. Martin, apresenta um paradigma com 'Código limpo - Habilidades Práticas do Agile Software.' Aprenda a ler códigos e descubra o que está correto e errado neles. Reavalie seus valores profissionais e seu comprometimento com o seu ofício. 'Código limpo' está divido em três partes. Na primeira há diversos capítulos que descrevem os princípios, padrões e práticas para criar um código limpo. A segunda parte consiste em diversos casos de estudo de complexidade cada vez maior. Cada um é um exercício para limpar um código - transformar o código base que possui alguns problemas em melhores e mais eficientes. A terceira parte é a compensação - um único capítulo com uma lista de heurísticas e 'odores' reunidos durante a criação dos estudos de caso. O resultado será um conhecimento base que descreve a forma como pensamos quando criamos, lemos e limpamos um código.";
     static final String PADROES_DE_PROJETO1 = "Catálogo de soluções simples e sucintas para os problemas mais freqüentes na área de projeto, assinado por quatro profissionais com grande experiência em software orientado a objetos. Um best-seller mundial.";
+    static final String ODISSEIA = "Odysseus (Armand Assante), após dez anos em batalha na Guerra de Tróia, se prepara para finalmente fazer a viagem de volta para sua casa na ilha de Ítaca. Em seu caminho, ele enfrentará criaturas mitológicas, deuses e outros inimigos poderosos. Essa adaptação do poema épico de Homero, que inspirou centenas de contos ao longo da História da humanidade, revela a força e bravura do herói e a sua luta para voltar ao lar, onde é aguardado por sua amada esposa Penelope (Greta Scacchi). Com a participação de um elenco de estrelas do cinema, esta obra de Andrey Konchalovskiy foi vencedora de 2 Emmys® e indicada a dois Globos de Ouro®! Extras: -Trailer - Cartazes Originais - Galeria De Fotos";
 }
 
 class ValoresIniciais {
@@ -125,5 +128,19 @@ class ValoresIniciais {
         fornecedores.add(fornecedor);
 
         return fornecedores;
+    }
+
+    static List<Filme> getFilmes(){
+        List<Filme> filmes = new ArrayList<>();
+        
+        Filme filme = new Filme();
+        filme.setTitulo("A Odisséia");
+        filme.setPreco(39.9f);
+        filme.setQuantidade(100);
+        filme.setCapa("odisseia.png");
+        filme.setResumo(Descricao.ODISSEIA);
+        filmes.add(filme);
+        
+        return filmes;
     }
 }

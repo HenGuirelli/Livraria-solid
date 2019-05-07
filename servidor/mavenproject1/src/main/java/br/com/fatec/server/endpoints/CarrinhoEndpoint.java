@@ -3,7 +3,7 @@ package br.com.fatec.server.endpoints;
 import br.com.fatec.DAO.ClienteDAO;
 import br.com.fatec.DAO.LivroDAO;
 import br.com.fatec.model.carrinho.Carrinho;
-import br.com.fatec.model.livro.Livro;
+import br.com.fatec.model.produto.Livro;
 import br.com.fatec.model.usuario.Cliente;
 import java.util.List;
 import javax.ws.rs.Consumes;

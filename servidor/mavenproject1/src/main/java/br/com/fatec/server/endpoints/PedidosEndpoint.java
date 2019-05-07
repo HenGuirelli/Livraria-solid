@@ -82,6 +82,20 @@ public class PedidosEndpoint {
             return ResultEndpoint.getFalha();
         }
     }
+    
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Path("/alterar/atendimento")
+    public ResultEndpoint alterarEstadoPedidoEmAtendimento(AlteracaoPedidoRequest body) {
+        try {
+            controller.alterarEstadoPedidoEmAtendimento(body.getCodigo());
+            return ResultEndpoint.getSucesso();
+        } catch (Exception ex) {
+            return ResultEndpoint.getFalha();
+        }
+    }
+    
 }
 
 class AlteracaoPedidoRequest {

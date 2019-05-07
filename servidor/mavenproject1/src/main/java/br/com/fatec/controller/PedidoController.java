@@ -2,9 +2,8 @@ package br.com.fatec.controller;
 
 import br.com.fatec.DAO.PedidoDAO;
 import br.com.fatec.enums.EstadoPedido;
-import br.com.fatec.model.livro.Livro;
+import br.com.fatec.model.Embalagem;
 import br.com.fatec.model.pedido.Pedido;
-import br.com.fatec.model.usuario.Cliente;
 import java.util.List;
 
 public class PedidoController {
@@ -34,6 +33,15 @@ public class PedidoController {
     }
     
     public void alterarEstadoPedidoEnviado(String codigo){
+        Pedido pedido = PedidoDAO.getInstance().buscarPedidoPorCodigo(codigo);
+        
+        int quantidadeProdutos = pedido.getProdutos().size();
+        int quantidadeEmbalagem = Embalagem.getInstance().getQuantidade();
+        
+        if (quantidadeProdutos > quantidadeEmbalagem){
+            throw new RuntimeException("Quantidade de embalagem insuficiente");
+        }
+        
         alterarEstadoPedido(codigo, EstadoPedido.enviado);
     }
     

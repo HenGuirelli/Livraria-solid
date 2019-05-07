@@ -2,9 +2,8 @@ package br.com.fatec.model.pedido;
 
 import br.com.fatec.DAO.CodigoDAO;
 import br.com.fatec.enums.EstadoPedido;
+import br.com.fatec.enums.FormaPagamento;
 import br.com.fatec.model.carrinho.ItemCarrinho;
-import br.com.fatec.model.livro.Livro;
-import br.com.fatec.model.usuario.Cliente;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -14,20 +13,54 @@ import java.util.Random;
 public class Pedido {
 
     private EstadoPedido estado;
-    private Date dataCriacao;
     private Date dataEmAtendimento;
     private Date entregue;
+    private Date enviado;
     private String codigo;
     private List<ItemCarrinho> produtos;
     private String cliente;
+    private float valor;
+    private float desconto;
+    private float valorTotal;
+    private FormaPagamento formaPagamento;
     
     public Pedido() {
         setCodigo(Pedido.gerarNovoCodigo());
-        dataCriacao = new Date(System.currentTimeMillis());
+        dataEmAtendimento = new Date(System.currentTimeMillis());
         produtos = new ArrayList<>();
         estado = EstadoPedido.emAtendimento;
     }
 
+    public FormaPagamento getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagamento(FormaPagamento formaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }
+    
+    public float getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(float valorTotal) {
+        this.valor = valorTotal - this.desconto;
+        this.valorTotal = valorTotal;
+    }
+    
+    public float getValor() {
+        return valor;
+    }
+
+    public float getDesconto() {
+        return desconto;
+    }
+
+    public void setDesconto(float desconto) {
+        this.valor = this.valorTotal - desconto;
+        this.desconto = desconto;
+    }
+    
     private static String gerarNovoCodigo() {
         CodigoDAO dao = CodigoDAO.getInstance();
         String codigo = "";
@@ -76,14 +109,6 @@ public class Pedido {
         this.estado = estadoPedido;
     }
 
-    public Date getDataCriacao() {
-        return dataCriacao;
-    }
-
-    public void setDataCriacao(Date dataCriacao) {
-        this.dataCriacao = dataCriacao;
-    }
-
     public Date getDataEmAtendimento() {
         return dataEmAtendimento;
     }
@@ -94,6 +119,14 @@ public class Pedido {
 
     public Date getEntregue() {
         return entregue;
+    }
+
+    public Date getEnviado() {
+        return enviado;
+    }
+
+    public void setEnviado(Date enviado) {
+        this.enviado = enviado;
     }
 
     public void setEntregue(Date entregue) {

@@ -1,4 +1,4 @@
-package br.com.fatec.model.livro;
+package br.com.fatec.model.produto;
 
 import br.com.fatec.DAO.FornecedorDAO;
 import br.com.fatec.DAO.LivroDAO;
@@ -19,6 +19,7 @@ public class Livro {
     private int quantidade = 20;
     private boolean esgotado;
     private List<Autor> autores;
+    private LivroDAO dao;
 
     static final String PATH_IMAGEM = "resources/images/";
 
@@ -26,6 +27,7 @@ public class Livro {
     public Livro() {
         this.autores = new ArrayList<>();
         this.esgotado = false;
+        dao = LivroDAO.getInstance();
     }
 
     // metodos    
@@ -48,34 +50,14 @@ public class Livro {
         if (this.quantidade == 0) {
             this.setEsgotado(true);
         }
-
+        
+        cliente.addPontos(5);
         // atualiza no banco de dados
-        LivroDAO dao = LivroDAO.getInstance();
         dao.atualizarQuantidade(this, novaQuantidade);
     }
     
-    public void comprar(int quantidade) {
-        FornecedorDAO daoFornecedor = FornecedorDAO.getInstance();
-        List<Fornecedor> fornecedores = daoFornecedor.getTodosFornecedores();
-        
-        Fornecedor fornecedor = procurarFornecedorComProduto(this.getTitulo(), fornecedores);
-        fornecedor.comprar(this.getTitulo(), quantidade);
-        
-        // atualiza no banco de dados
-        LivroDAO dao = LivroDAO.getInstance();
+    public void comprar(int quantidade){        
         this.setQuantidade(this.getQuantidade() + quantidade);
-        dao.atualizarQuantidade(this, this.getQuantidade());
-    }
-    
-    private Fornecedor procurarFornecedorComProduto(String nomeProduto, List<Fornecedor> fornecedores){
-        for(Fornecedor fornecedor : fornecedores){
-            for(Livro produto : fornecedor.getEstoque()){
-                if(produto.getTitulo().equals(nomeProduto)){
-                    return fornecedor;
-                }
-            }
-        }
-        return null;
     }
 
     @Override
