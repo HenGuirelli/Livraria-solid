@@ -1,5 +1,6 @@
 package br.com.fatec.controller;
 
+import br.com.fatec.DAO.LivroDAO;
 import br.com.fatec.DAO.PedidoDAO;
 import br.com.fatec.enums.FormaPagamento;
 import br.com.fatec.model.carrinho.Carrinho;
@@ -26,6 +27,11 @@ public class VendaController {
         
         descontoController.aplicarDesconto(pedido);
                 
+        cliente.addPontos(5);
+        // atualiza no banco de dados
+        LivroDAO livroDAO = LivroDAO.getInstance();
+        livroDAO.atualizarQuantidade(livro, livro.getQuantidade());
+        
         return pedido;
     }
     
