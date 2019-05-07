@@ -23,4 +23,12 @@ public class Embalagem {
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
     }
+    
+    public void consumir(int quantidade) {
+        this.quantidade -= quantidade;
+    }
+    
+    public void comprar(int quantidade) {
+        this.quantidade += quantidade;
+    }
 }
