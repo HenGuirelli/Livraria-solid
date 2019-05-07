@@ -1,6 +1,6 @@
 package br.com.fatec.model.fornecedor;
 
-import br.com.fatec.model.Produto.Livro;
+import br.com.fatec.model.produto.Livro;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;

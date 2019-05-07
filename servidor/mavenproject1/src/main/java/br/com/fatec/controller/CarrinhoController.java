@@ -1,7 +1,7 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.model.carrinho.ItemCarrinho;
-import br.com.fatec.model.Produto.Livro;
+import br.com.fatec.model.produto.Livro;
 import br.com.fatec.model.usuario.Cliente;
 import java.util.List;
 

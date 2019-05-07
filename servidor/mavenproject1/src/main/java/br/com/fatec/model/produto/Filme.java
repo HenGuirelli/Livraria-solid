@@ -1,4 +1,4 @@
-package br.com.fatec.model.Produto;
+package br.com.fatec.model.produto;
 
 public class Filme  extends Livro {
     private int duracao;

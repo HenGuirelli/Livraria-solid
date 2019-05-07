@@ -3,7 +3,7 @@ package br.com.fatec.server.endpoints;
 import br.com.fatec.DAO.ClienteDAO;
 import br.com.fatec.DAO.LivroDAO;
 import br.com.fatec.enums.FormaPagamento;
-import br.com.fatec.model.Produto.Livro;
+import br.com.fatec.model.produto.Livro;
 import br.com.fatec.model.pedido.Pedido;
 import br.com.fatec.model.usuario.Cliente;
 import br.com.fatec.model.usuario.DadosPagamento;

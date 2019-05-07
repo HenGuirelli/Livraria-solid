@@ -1,6 +1,6 @@
 package br.com.fatec.server.endpoints;
 
-import br.com.fatec.model.Produto.Livro;
+import br.com.fatec.model.produto.Livro;
 import javax.ws.rs.Path;
 import java.util.List;
 import javax.ws.rs.GET;

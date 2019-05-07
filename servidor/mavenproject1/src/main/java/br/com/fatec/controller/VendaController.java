@@ -4,7 +4,7 @@ import br.com.fatec.DAO.PedidoDAO;
 import br.com.fatec.enums.FormaPagamento;
 import br.com.fatec.model.carrinho.Carrinho;
 import br.com.fatec.model.carrinho.ItemCarrinho;
-import br.com.fatec.model.Produto.Livro;
+import br.com.fatec.model.produto.Livro;
 import br.com.fatec.model.pedido.Pedido;
 import br.com.fatec.model.usuario.Cliente;
 
