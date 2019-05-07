@@ -1,6 +1,6 @@
 package br.com.fatec.model.carrinho;
 
-import br.com.fatec.model.livro.Livro;
+import br.com.fatec.model.Produto.Livro;
 import java.util.Objects;
 
 public class ItemCarrinho {

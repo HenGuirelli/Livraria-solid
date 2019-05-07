@@ -70,9 +70,9 @@
             $comprar.innerHTML = 'Comprar'
             $comprar.onclick = () => {
                 comprar(produto.titulo, $quantidade.value)
-                .then(_ => {
-                    alert('Compra realizada')
-                })
+                    .then(_ => {
+                        alert('Compra realizada')
+                    })
             }
 
             $wrapperProduto.appendChild($imagem)

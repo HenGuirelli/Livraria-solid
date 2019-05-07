@@ -11,9 +11,17 @@ if ($nomeLivraria)
 
 const $acesso = document.querySelector('.acesso')
 const $meusPedidos = document.querySelector('.meus-pedidos')
+const $menuFuncionario = document.querySelector('.menu-funcionario')
 
 if (sessionStorage.getItem('logado')){
-    $meusPedidos.classList.remove('nao-visivel')
+    if (sessionStorage.getItem('isFuncionario') === "true"){
+        $menuFuncionario.classList.remove('nao-visivel')
+        $meusPedidos.classList.add('nao-visivel')
+
+    }else {
+        $meusPedidos.classList.remove('nao-visivel')
+        $menuFuncionario.classList.add('nao-visivel')
+    }
     $acesso.classList.add('nao-visivel')
 }else {
     $acesso.classList.remove('nao-visivel')

@@ -2,7 +2,7 @@ package br.com.fatec.controller;
 
 import br.com.fatec.DAO.PedidoDAO;
 import br.com.fatec.enums.EstadoPedido;
-import br.com.fatec.model.livro.Livro;
+import br.com.fatec.model.Produto.Livro;
 import br.com.fatec.model.pedido.Pedido;
 import br.com.fatec.model.usuario.Cliente;
 import java.util.List;

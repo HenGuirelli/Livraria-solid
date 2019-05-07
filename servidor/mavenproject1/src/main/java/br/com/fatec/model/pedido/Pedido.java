@@ -2,9 +2,8 @@ package br.com.fatec.model.pedido;
 
 import br.com.fatec.DAO.CodigoDAO;
 import br.com.fatec.enums.EstadoPedido;
+import br.com.fatec.enums.FormaPagamento;
 import br.com.fatec.model.carrinho.ItemCarrinho;
-import br.com.fatec.model.livro.Livro;
-import br.com.fatec.model.usuario.Cliente;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -20,6 +19,10 @@ public class Pedido {
     private String codigo;
     private List<ItemCarrinho> produtos;
     private String cliente;
+    private float valor;
+    private float desconto;
+    private float valorTotal;
+    private FormaPagamento formaPagamento;
     
     public Pedido() {
         setCodigo(Pedido.gerarNovoCodigo());
@@ -28,6 +31,36 @@ public class Pedido {
         estado = EstadoPedido.emAtendimento;
     }
 
+    public FormaPagamento getFormaPagamento() {
+        return formaPagamento;
+    }
+
+    public void setFormaPagamento(FormaPagamento formaPagamento) {
+        this.formaPagamento = formaPagamento;
+    }
+    
+    public float getValorTotal() {
+        return valorTotal;
+    }
+
+    public void setValorTotal(float valorTotal) {
+        this.valor = valorTotal - this.desconto;
+        this.valorTotal = valorTotal;
+    }
+    
+    public float getValor() {
+        return valor;
+    }
+
+    public float getDesconto() {
+        return desconto;
+    }
+
+    public void setDesconto(float desconto) {
+        this.valor = this.valorTotal - desconto;
+        this.desconto = desconto;
+    }
+    
     private static String gerarNovoCodigo() {
         CodigoDAO dao = CodigoDAO.getInstance();
         String codigo = "";

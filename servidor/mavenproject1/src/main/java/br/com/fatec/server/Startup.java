@@ -7,7 +7,7 @@ import org.glassfish.jersey.server.ResourceConfig;
 
 import br.com.fatec.DAO.LivroDAO;
 import br.com.fatec.model.fornecedor.Fornecedor;
-import br.com.fatec.model.livro.Livro;
+import br.com.fatec.model.Produto.Livro;
 import br.com.fatec.model.usuario.Usuario;
 
 @ApplicationPath("rest")

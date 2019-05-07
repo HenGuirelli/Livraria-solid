@@ -14,6 +14,7 @@ public class Cliente extends Usuario {
     private DadosPagamento dadosPagamento;
     private Carrinho carrinho;
     private List<Pedido> pedidos = new ArrayList<>();
+    private int pontos;
 
     // construtor
     public Cliente() {
@@ -28,15 +29,27 @@ public class Cliente extends Usuario {
         pedidos.remove(pedido);
     }
 
+    public void addPontos(int pontos){
+        this.setPontos(getPontos() + pontos);
+    }
+    
+    // getters e setters
     public List<Pedido> getPedidos() {
         return this.pedidos;
     }
-    
-    public void setPedidos(List<Pedido> pedidos){
+
+    public void setPedidos(List<Pedido> pedidos) {
         this.pedidos = pedidos;
     }
 
-    // getters e setters
+    public int getPontos() {
+        return pontos;
+    }
+
+    public void setPontos(int pontos) {
+        this.pontos = pontos;
+    }
+
     public Carrinho getCarrinho() {
         return carrinho;
     }

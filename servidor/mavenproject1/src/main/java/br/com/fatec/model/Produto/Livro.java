@@ -1,4 +1,4 @@
-package br.com.fatec.model.livro;
+package br.com.fatec.model.Produto;
 
 import br.com.fatec.DAO.FornecedorDAO;
 import br.com.fatec.DAO.LivroDAO;

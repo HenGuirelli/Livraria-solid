@@ -2,7 +2,9 @@ package br.com.fatec.server.endpoints;
 
 import br.com.fatec.DAO.ClienteDAO;
 import br.com.fatec.DAO.LivroDAO;
-import br.com.fatec.model.livro.Livro;
+import br.com.fatec.controller.DescontoController;
+import br.com.fatec.enums.FormaPagamento;
+import br.com.fatec.model.Produto.Livro;
 import br.com.fatec.model.pedido.Pedido;
 import br.com.fatec.model.usuario.Cliente;
 import br.com.fatec.model.usuario.DadosPagamento;
@@ -28,7 +30,11 @@ public class VendaEndpoint {
         ResultEndpoint processo = new ResultEndpoint();
 
         try {
-            Pedido pedido = controller.vender(cliente.getCarrinho(), cliente);
+            Pedido pedido = controller.vender(
+                    cliente.getCarrinho(),
+                    FormaPagamento.convert(request.getFormaPagamento()), 
+                    cliente);
+            
             processo.setSuccess(true);
             processo.setMensagem(pedido.getCodigo());
 
@@ -52,15 +58,22 @@ public class VendaEndpoint {
         Cliente c = ClienteDAO.getInstance().getCliente(request.getCliente());
         List<Livro> l = LivroDAO.getInstance().getLivroPorNome(request.getLivro());
 
+        c.setDadosPagamento(request.getDadosPagamento());
+        
         if (l == null || l.isEmpty()) {
             result.setSuccess(false);
             result.setMensagem("Livro não encontrado");
             return result;
-        }
+        }        
 
-        Pedido pedido = controller.vender(l.get(0), c, request.getQuantidade());
+        Pedido pedido = controller.vender(
+                l.get(0), 
+                c, 
+                FormaPagamento.convert(request.getFormaPagamento()), 
+                request.getQuantidade());
+        
         result.setSuccess(true);
-        result.setMensagem(pedido.getCodigo());
+        result.setMensagem("Código do pedido: " + pedido.getCodigo() + " valor descontado: " + pedido.getDesconto());
         return result;
     }
 }
@@ -72,7 +85,16 @@ class VendaLivroRequest {
     private int quantidade;
     private DadosPagamento dadosPagamento;
     private String formaPagamento;
+    private float valor;
 
+    public float getValor() {
+        return valor;
+    }
+
+    public void setValor(float valor) {
+        this.valor = valor;
+    }
+    
     public String getFormaPagamento() {
         return formaPagamento;
     }

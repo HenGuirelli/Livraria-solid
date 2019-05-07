@@ -1,5 +1,6 @@
 package br.com.fatec.server.endpoints;
 
+import br.com.fatec.model.usuario.Funcionario;
 import javax.ws.rs.Path;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -14,9 +15,10 @@ public class ContaEndpoint {
     @Consumes(MediaType.APPLICATION_JSON)
     @Produces(MediaType.APPLICATION_JSON)
     @Path("login")
-    public ResultEndpoint logar(br.com.fatec.model.usuario.Usuario usuario){
-        ResultEndpoint result = new ResultEndpoint();
+    public ResponseLogin logar(br.com.fatec.model.usuario.Usuario usuario){
+        ResponseLogin result = new ResponseLogin();
         result.setSuccess(controller.logar(usuario.getLogin(), usuario.getSenha()));
+        result.setIsFuncionario(controller.getUsuario(usuario.getLogin(), usuario.getSenha()) instanceof Funcionario);
         return result;
     }
     
@@ -32,5 +34,17 @@ public class ContaEndpoint {
         ResultEndpoint result = new ResultEndpoint();
         result.setSuccess(true);
         return result;
+    }
+}
+
+class ResponseLogin extends ResultEndpoint {
+    private boolean isFuncionario = false;
+
+    public boolean isIsFuncionario() {
+        return isFuncionario;
+    }
+
+    public void setIsFuncionario(boolean isFuncionario) {
+        this.isFuncionario = isFuncionario;
     }
 }

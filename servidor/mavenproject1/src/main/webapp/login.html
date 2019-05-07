@@ -19,9 +19,15 @@
             <button onClick="window.location.href = baseURL + '/login.html'">login</button>
             <button onClick="window.location.href = baseURL + '/cadastro.html'">cadastro</button>
         </div>
+
         <div class="meus-pedidos menu-direito">
             <button onClick="window.location.href = baseURL + '/meus_pedidos.html'">Meus pedidos</button>
             <button onClick="window.location.href = baseURL + '/carrinho.html'">Carrinho</button>
+        </div>
+
+        <div class="menu-direito menu-funcionario">
+            <button onClick="window.location.href = baseURL + '/pedidos.html'">Pedidos</button>
+            <button onClick="window.location.href = baseURL + '/compra_produto.html'">Fornecedores</button>
         </div>
 
         <div class="pesquisa-livros">
@@ -66,6 +72,7 @@
             .then(result => {
                 if (result.success) {
                     sessionStorage.setItem('logado', login)
+                    sessionStorage.setItem('isFuncionario', result.isFuncionario)
                     window.location = baseURL + '/index.html'
                 } else {
                     alert('login ou senha incorretos')

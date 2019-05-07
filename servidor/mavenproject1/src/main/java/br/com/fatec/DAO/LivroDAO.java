@@ -1,6 +1,6 @@
 package br.com.fatec.DAO;
 
-import br.com.fatec.model.livro.Livro;
+import br.com.fatec.model.Produto.Livro;
 import java.util.List;
 
 public class LivroDAO extends DAO<Livro> {

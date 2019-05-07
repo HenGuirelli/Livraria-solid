@@ -1,7 +1,8 @@
 package br.com.fatec.server;
 
+import br.com.fatec.model.Produto.Autor;
+import br.com.fatec.model.Produto.Livro;
 import br.com.fatec.model.fornecedor.Fornecedor;
-import br.com.fatec.model.livro.*;
 import br.com.fatec.model.usuario.*;
 import java.util.ArrayList;
 import java.util.HashSet;

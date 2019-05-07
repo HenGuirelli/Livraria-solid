@@ -1,8 +1,8 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.DAO.LivroDAO;
-import br.com.fatec.model.livro.Autor;
-import br.com.fatec.model.livro.Livro;
+import br.com.fatec.model.Produto.Autor;
+import br.com.fatec.model.Produto.Livro;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,7 +1,7 @@
 package br.com.fatec.controller;
 
 import br.com.fatec.DAO.LivroDAO;
-import br.com.fatec.model.livro.Livro;
+import br.com.fatec.model.Produto.Livro;
 
 public class CompraController {    
     public void comprar(String nomeProduto, int qtd){       

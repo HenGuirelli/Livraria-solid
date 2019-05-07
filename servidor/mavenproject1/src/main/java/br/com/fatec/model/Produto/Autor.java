@@ -1,4 +1,4 @@
-package br.com.fatec.model.livro;
+package br.com.fatec.model.Produto;
 
 import java.util.Date;
 
