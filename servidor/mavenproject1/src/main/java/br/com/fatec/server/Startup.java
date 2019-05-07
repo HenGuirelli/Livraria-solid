@@ -6,6 +6,8 @@ import javax.ws.rs.ApplicationPath;
 import org.glassfish.jersey.server.ResourceConfig;
 
 import br.com.fatec.DAO.LivroDAO;
+import br.com.fatec.model.Embalagem;
+import br.com.fatec.model.Produto.Filme;
 import br.com.fatec.model.fornecedor.Fornecedor;
 import br.com.fatec.model.Produto.Livro;
 import br.com.fatec.model.usuario.Usuario;
@@ -24,6 +26,10 @@ public class Startup extends ResourceConfig {
             livroDAO.add(livro);
         }
 
+        for (Filme filme : ValoresIniciais.getFilmes()) {
+            livroDAO.add(filme);
+        }
+        
         ContaDAO contaDAO = ContaDAO.getInstance();
         for (Usuario user : ValoresIniciais.getUsuarios()) {
             contaDAO.add(user);
@@ -33,5 +39,8 @@ public class Startup extends ResourceConfig {
         for (Fornecedor fornecedor : ValoresIniciais.getFornecedores()) {
             fornecedorDAO.add(fornecedor);
         }
+        
+        Embalagem embalagem = Embalagem.getInstance();
+        embalagem.setQuantidade(100);
     }
 }

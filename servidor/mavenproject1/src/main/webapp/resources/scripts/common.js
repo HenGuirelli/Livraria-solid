@@ -15,17 +15,25 @@ const $menuFuncionario = document.querySelector('.menu-funcionario')
 
 if (sessionStorage.getItem('logado')){
     if (sessionStorage.getItem('isFuncionario') === "true"){
-        $menuFuncionario.classList.remove('nao-visivel')
-        $meusPedidos.classList.add('nao-visivel')
+        try {
+            $menuFuncionario.classList.remove('nao-visivel')
+            $meusPedidos.classList.add('nao-visivel')
+        } catch(e){}
 
     }else {
-        $meusPedidos.classList.remove('nao-visivel')
-        $menuFuncionario.classList.add('nao-visivel')
+        try {
+            $meusPedidos.classList.remove('nao-visivel')
+            $menuFuncionario.classList.add('nao-visivel')        
+        } catch(e){}
     }
-    $acesso.classList.add('nao-visivel')
+    try {
+        $acesso.classList.add('nao-visivel')
+    } catch(e){}
 }else {
-    $acesso.classList.remove('nao-visivel')
-    $meusPedidos.classList.add('nao-visivel')
+    try {
+        $acesso.classList.remove('nao-visivel')
+        $meusPedidos.classList.add('nao-visivel')
+    } catch(e){}
 }
 
 const GET = async url => {

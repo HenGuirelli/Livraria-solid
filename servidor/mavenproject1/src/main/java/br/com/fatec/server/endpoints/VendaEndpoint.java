@@ -2,7 +2,6 @@ package br.com.fatec.server.endpoints;
 
 import br.com.fatec.DAO.ClienteDAO;
 import br.com.fatec.DAO.LivroDAO;
-import br.com.fatec.controller.DescontoController;
 import br.com.fatec.enums.FormaPagamento;
 import br.com.fatec.model.Produto.Livro;
 import br.com.fatec.model.pedido.Pedido;
@@ -27,31 +26,25 @@ public class VendaEndpoint {
     public ResultEndpoint vender(VendaCarrinhoRequest request) {
         Cliente cliente = new ClienteEndpoint().getCliente(request.getCliente());
 
-        ResultEndpoint processo = new ResultEndpoint();
-
         try {
             Pedido pedido = controller.vender(
                     cliente.getCarrinho(),
                     FormaPagamento.convert(request.getFormaPagamento()), 
                     cliente);
             
-            processo.setSuccess(true);
-            processo.setMensagem(pedido.getCodigo());
 
             // esvazia o carrinho
             cliente.getCarrinho().esvaziar();
-            return processo;
+            return ResultEndpoint.getSucesso("Código do pedido: " + pedido.getCodigo() + " valor descontado: " + pedido.getDesconto());
         } catch (Exception ex) {
-            processo.setSuccess(false);
-            processo.setMensagem(ex.getMessage());
-            return processo;
+            return ResultEndpoint.getFalha(ex.getMessage());
         }
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     @Consumes(MediaType.APPLICATION_JSON)
-    @Path("vender/livro")
+    @Path("vender/produto")
     public ResultEndpoint vender(VendaLivroRequest request) {
         ResultEndpoint result = new ResultEndpoint();
 
