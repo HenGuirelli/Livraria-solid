@@ -19,6 +19,7 @@ public class Livro {
     private int quantidade = 20;
     private boolean esgotado;
     private List<Autor> autores;
+    private LivroDAO dao;
 
     static final String PATH_IMAGEM = "resources/images/";
 
@@ -26,6 +27,7 @@ public class Livro {
     public Livro() {
         this.autores = new ArrayList<>();
         this.esgotado = false;
+        dao = LivroDAO.getInstance();
     }
 
     // metodos    
@@ -50,7 +52,6 @@ public class Livro {
         }
 
         // atualiza no banco de dados
-        LivroDAO dao = LivroDAO.getInstance();
         dao.atualizarQuantidade(this, novaQuantidade);
     }
     
@@ -62,7 +63,6 @@ public class Livro {
         fornecedor.comprar(this.getTitulo(), quantidade);
         
         // atualiza no banco de dados
-        LivroDAO dao = LivroDAO.getInstance();
         this.setQuantidade(this.getQuantidade() + quantidade);
         dao.atualizarQuantidade(this, this.getQuantidade());
     }
