@@ -1,6 +1,8 @@
 package br.com.fatec.model;
 
-public class Embalagem {
+import br.com.fatec.model.produto.Negociavel;
+
+public class Embalagem implements Negociavel {
 
     private int quantidade;
 
@@ -22,5 +24,20 @@ public class Embalagem {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
+    }
+
+    @Override
+    public void comprar(int quantidade) {
+        this.quantidade += quantidade;
+    }
+
+    @Override
+    public void vender(int quantidade) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public float getPreco() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }
