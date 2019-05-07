@@ -26,6 +26,10 @@ public class Embalagem implements Negociavel {
         this.quantidade = quantidade;
     }
 
+    public void consumir(int quantidade) {
+        this.quantidade -= quantidade;
+    }
+    
     @Override
     public void comprar(int quantidade) {
         this.quantidade += quantidade;

@@ -4,6 +4,7 @@ import br.com.fatec.DAO.FilmeDAO;
 import br.com.fatec.DAO.LivroDAO;
 import br.com.fatec.DAO.PedidoDAO;
 import br.com.fatec.enums.FormaPagamento;
+import br.com.fatec.model.Embalagem;
 import br.com.fatec.model.carrinho.Carrinho;
 import br.com.fatec.model.carrinho.ItemCarrinho;
 import br.com.fatec.model.produto.Livro;
@@ -80,6 +81,9 @@ public class VendaController {
 
         cliente.addPontos(5);
         persistir(negociavel, quantidade);
+        
+        Embalagem embalagem = Embalagem.getInstance();
+        embalagem.consumir(quantidade);
 
         return pedido;
     }
