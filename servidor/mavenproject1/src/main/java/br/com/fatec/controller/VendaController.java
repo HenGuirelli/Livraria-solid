@@ -17,7 +17,7 @@ public class VendaController {
         ItemCarrinho item = new ItemCarrinho();
         item.setProduto(livro);
         
-        livro.vender(cliente, quantidade);
+        livro.vender(quantidade);
         
         Pedido pedido = new Pedido();
         pedido.addProduto(item);
@@ -49,7 +49,7 @@ public class VendaController {
         Pedido pedido = new Pedido();
         for (ItemCarrinho item : carrinho.getItens()) {
             Livro livro = item.getProduto();
-            livro.vender(cliente, item.getQuantidade());
+            livro.vender(item.getQuantidade());
             
             pedido.addProduto(item);
             pedido.setCliente(cliente.getLogin());

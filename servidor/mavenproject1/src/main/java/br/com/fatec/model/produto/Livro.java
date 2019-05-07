@@ -43,7 +43,7 @@ public class Livro {
         return autores;
     }
 
-    public void vender(Cliente cliente, int quantidade) {
+    public void vender(int quantidade) {
         // atualiza model
         int novaQuantidade = this.getQuantidade() - quantidade;
         this.setQuantidade(novaQuantidade);
