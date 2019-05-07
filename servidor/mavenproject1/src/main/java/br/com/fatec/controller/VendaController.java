@@ -6,6 +6,11 @@ import br.com.fatec.DAO.PedidoDAO;
 import br.com.fatec.enums.FormaPagamento;
 import br.com.fatec.model.carrinho.Carrinho;
 import br.com.fatec.model.carrinho.ItemCarrinho;
+import br.com.fatec.model.pagamento.AVista;
+import br.com.fatec.model.pagamento.FidelidadeDecorator;
+import br.com.fatec.model.pagamento.Pagamento;
+import br.com.fatec.model.pagamento.Parcelado;
+import br.com.fatec.model.pagamento.PromocaoDecorator;
 import br.com.fatec.model.produto.Livro;
 import br.com.fatec.model.pedido.Pedido;
 import br.com.fatec.model.produto.Filme;
@@ -63,12 +68,12 @@ public class VendaController {
         return pedido;
     }*/
 
-    public Pedido vender(Vendavel negociavel, Cliente cliente, FormaPagamento formaPagamento, int quantidade) {
+    public Pedido vender(Vendavel vendavel, Cliente cliente, FormaPagamento formaPagamento, int quantidade) {
         PedidoDAO dao = PedidoDAO.getInstance();
         ItemCarrinho item = new ItemCarrinho();
-        item.setProduto(negociavel);
+        item.setProduto(vendavel);
 
-        negociavel.vender(quantidade);
+        vendavel.vender(quantidade);
 
         Pedido pedido = new Pedido();
         pedido.addProduto(item);
@@ -76,10 +81,20 @@ public class VendaController {
         cliente.addPedido(pedido);
         dao.add(pedido);
 
-        descontoController.aplicarDesconto(pedido);
-
-        cliente.addPontos(5);
-        persistir(negociavel, quantidade);
+        //descontoController.aplicarDesconto(pedido);
+        float desconto = 0;
+        if (formaPagamento == FormaPagamento.A_VISTA){
+            Pagamento pagamento = new PromocaoDecorator(
+                    new FidelidadeDecorator(new AVista(), cliente), (Produto) vendavel);
+            desconto = pagamento.calcularDesconto();
+        }else {
+            Pagamento pagamento = new PromocaoDecorator(
+                    new FidelidadeDecorator(new Parcelado(), cliente), (Produto) vendavel);
+            desconto = pagamento.calcularDesconto();            
+        }
+        pedido.setDesconto(desconto);
+        cliente.setPontos(5);
+        persistir(vendavel, quantidade);
         
         
         return pedido;
@@ -108,12 +123,25 @@ public class VendaController {
         PedidoDAO dao = PedidoDAO.getInstance();
         Pedido pedido = new Pedido();
         for (ItemCarrinho item : carrinho.getItens()) {
-            Vendavel livro = item.getProduto();
-            livro.vender(item.getQuantidade());
-
+            Vendavel vendavel = item.getProduto();
+            vendavel.vender(item.getQuantidade());
+            
             pedido.addProduto(item);
             pedido.setCliente(cliente.getLogin());
             pedido.setValorTotal(pedido.getValorTotal() + item.getValor());
+            
+            float desconto = 0;
+            if (formaPagamento == FormaPagamento.A_VISTA){
+                Pagamento pagamento = new PromocaoDecorator(
+                        new FidelidadeDecorator(new AVista(), cliente), (Produto) vendavel);
+                desconto = pagamento.calcularDesconto();
+            }else {
+                Pagamento pagamento = new PromocaoDecorator(
+                        new FidelidadeDecorator(new Parcelado(), cliente), (Produto) vendavel);
+                desconto = pagamento.calcularDesconto();            
+            }
+            pedido.setDesconto(desconto);
+            cliente.setPontos(0);
         }
         cliente.addPedido(pedido);
         dao.add(pedido);
