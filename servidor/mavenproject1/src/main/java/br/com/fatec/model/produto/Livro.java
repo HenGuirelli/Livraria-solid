@@ -50,7 +50,8 @@ public class Livro {
         if (this.quantidade == 0) {
             this.setEsgotado(true);
         }
-
+        
+        cliente.addPontos(5);
         // atualiza no banco de dados
         dao.atualizarQuantidade(this, novaQuantidade);
     }

@@ -22,7 +22,6 @@ public class VendaController {
         pedido.addProduto(item);
         pedido.setCliente(cliente.getLogin());        
         cliente.addPedido(pedido);
-        cliente.addPontos(5);
         dao.add(pedido);
         
         descontoController.aplicarDesconto(pedido);
@@ -43,7 +42,9 @@ public class VendaController {
         PedidoDAO dao = PedidoDAO.getInstance();
         Pedido pedido = new Pedido();
         for (ItemCarrinho item : carrinho.getItens()) {
-            item.getProduto().vender(cliente, item.getQuantidade());
+            Livro livro = item.getProduto();
+            livro.vender(cliente, item.getQuantidade());
+            
             pedido.addProduto(item);
             pedido.setCliente(cliente.getLogin());
             pedido.setValorTotal(pedido.getValorTotal() + item.getValor());
@@ -54,7 +55,6 @@ public class VendaController {
         
         pedido.setFormaPagamento(formaPagamento);
         pedido = descontoController.aplicarDesconto(pedido);
-        cliente.setPontos(5);
         
         return pedido;
     }
