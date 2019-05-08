@@ -1,0 +1,21 @@
+.pedido > div > span {
+    display: block
+}
+
+.pedido {
+    border: solid 1px;
+    margin-top: 1em;
+    padding: 1em;
+    display: flex;
+    justify-content: space-between;
+}
+
+.wrapper-imagem-produto {
+    /* max-width: 80px; */
+    display: table-footer-group;
+}
+
+.wrapper-imagem-produto > img {
+    display: inline-block;
+    max-width: 80px;
+}

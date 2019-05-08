@@ -1,0 +1,100 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="resources/css/compra_produto.css">
+    <title>Livraria</title>
+</head>
+
+<body>
+    <nav class="menu">
+        <div class="redirecionar-home">
+            <button onClick="window.location.href = baseURL + '/'">Home</button>
+        </div>
+
+        <div class="acesso menu-direito">
+            <button onClick="window.location.href = baseURL + '/login.html'">login</button>
+            <button onClick="window.location.href = baseURL + '/cadastro.html'">cadastro</button>
+        </div>
+        <div class="meus-pedidos menu-direito">
+            <button onClick="window.location.href = baseURL + '/meus_pedidos.html'">Meus pedidos</button>
+            <button onClick="window.location.href = baseURL + '/carrinho.html'">Carrinho</button>
+        </div>
+
+        <div class="pesquisa-livros">
+            <input type="text" placeholder="Pesquisar por nome, editora ou autor" id='barra-pesquisa'>
+            <button
+                onClick="window.location.href = baseURL + '/pesquisa.html?pesquisa=' + document.querySelector('#barra-pesquisa').value">Pesquisar</button>
+        </div>
+    </nav>
+
+    <h1 class="nome-livraria"></h1> <!-- nome livraria -->
+
+    <main class="">
+        <div class="produtos">
+
+        </div>
+    </main>
+
+</body>
+<script src="resources/scripts/common.js"></script>
+<script src="resources/scripts/compra.js"></script>
+<script type="text/javascript">
+    const $main = document.querySelector('.produtos')
+
+    const getVitrineFornecedor = (fornecedor) => {
+        const $wrapperFornecedor = document.createElement('div')
+        $wrapperFornecedor.classList.add('wrapper-fornecedor')
+
+        fornecedor.estoque.forEach(produto => {
+            const $wrapperProduto = document.createElement('div')
+            $wrapperProduto.classList.add('wrapper-produto')
+
+            const $imagem = document.createElement('img')
+            $imagem.setAttribute('src', produto.capa)
+
+            const $titulo = document.createElement('p')
+            $titulo.innerHTML = produto.titulo
+
+            const $preco = document.createElement('h3')
+            $preco.innerHTML = 'R$ ' + produto.preco
+
+            const $quantidade = document.createElement('input')
+            $quantidade.type = 'number'
+            $quantidade.value = 10
+
+            const $comprar = document.createElement('button')
+            $comprar.innerHTML = 'Comprar'
+            $comprar.onclick = () => {
+                comprar(produto.titulo, $quantidade.value)
+                    .then(_ => {
+                        alert('Compra realizada')
+                    })
+            }
+
+            $wrapperProduto.appendChild($imagem)
+            $wrapperProduto.appendChild($preco)
+            $wrapperProduto.appendChild($quantidade)
+            $wrapperProduto.appendChild($comprar)
+
+            $wrapperFornecedor.appendChild($wrapperProduto)
+        })
+        return $wrapperFornecedor
+    }
+
+    getFornecedores()
+        .then(result => {
+            result.forEach(fornecedor => {
+                const $fornecedor = getVitrineFornecedor(fornecedor)
+                const $nomeFornecedor = document.createElement('h2')
+                $nomeFornecedor.innerHTML = fornecedor.nome
+                $main.appendChild($nomeFornecedor)
+                $main.appendChild($fornecedor)
+            })
+        })
+</script>
+
+</html>

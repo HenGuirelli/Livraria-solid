@@ -1,0 +1,89 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="resources/css/pesquisa.css">
+    <title>Livraria</title>
+</head>
+
+<body>
+    <nav class="menu">
+        <div class="redirecionar-home">
+            <button onClick="window.location.href = baseURL + '/'">Home</button>
+        </div>
+
+        <div class="acesso menu-direito">
+            <button onClick="window.location.href = baseURL + '/login.html'">login</button>
+            <button onClick="window.location.href = baseURL + '/cadastro.html'">cadastro</button>
+        </div>
+        <div class="meus-pedidos menu-direito">
+            <button onClick="window.location.href = baseURL + '/meus_pedidos.html'">Meus pedidos</button>
+            <button onClick="window.location.href = baseURL + '/carrinho.html'">Carrinho</button>
+        </div>
+
+        <div class="pesquisa-livros">
+            <input type="text" placeholder="Pesquisar por nome, editora ou autor" id='barra-pesquisa'>
+            <button
+                onClick="window.location.href = baseURL + '/pesquisa.html?pesquisa=' + document.querySelector('#barra-pesquisa').value">Pesquisar</button>
+        </div>
+    </nav>
+
+    <h1 class="nome-livraria"></h1> <!-- nome livraria -->
+
+    <main class="produtos-vitrine">
+
+    </main>
+
+</body>
+<script src="resources/scripts/common.js"></script>
+<script src="resources/scripts/livro.js"></script>
+
+<script type="text/javascript">
+    const url = new URL(window.location.href)
+    const pesquisa = url.searchParams.get("pesquisa")
+
+    pesquisarLivros(pesquisa)
+        .then(result => {
+            const $vitrine = document.querySelector('.produtos-vitrine')
+            if (result) {
+                result.forEach(produto => {
+                    const $wrapper = document.createElement('div')
+                    const $imagem = document.createElement('img')
+                    const $titulo = document.createElement('h3')
+                    const $resumo = document.createElement('p')
+                    const $preco = document.createElement('span')
+
+                    const $textoWrapper = document.createElement('div')
+
+                    $wrapper.appendChild($imagem)
+                    $textoWrapper.appendChild($titulo)
+                    $textoWrapper.appendChild($resumo)
+                    $wrapper.appendChild($textoWrapper)
+                    $wrapper.appendChild($preco)
+
+                    $vitrine.appendChild($wrapper)
+
+                    $imagem.setAttribute('src', produto.capa)
+                    $titulo.innerHTML = produto.titulo
+                    $resumo.innerHTML = produto.resumo
+                    $preco.innerHTML = 'R$ ' + produto.preco
+
+                    $wrapper.classList.add('item-pesquisa-vitrine')
+
+                    $wrapper.onclick = () => {
+                        localStorage.setItem('produto', JSON.stringify(produto))
+                        window.location.href = baseURL + '/produto.html'
+                    }
+
+                });
+            } else {
+                $vitrine.innerHTML = 'Nenhum resultado'
+            }
+        })
+
+</script>
+
+</html>

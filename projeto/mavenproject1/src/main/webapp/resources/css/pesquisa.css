@@ -1,0 +1,15 @@
+.item-pesquisa-vitrine {
+    border: solid 1px black;
+    margin-top: 1em;
+    display: flex;
+    max-height: 200px;
+}
+
+.item-pesquisa-vitrine img {
+    max-width: 200px
+}
+
+.item-pesquisa-vitrine:hover {
+    border: solid 3px var(--main-color);
+    box-sixing: border-box;
+}

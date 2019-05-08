@@ -1,0 +1,79 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="resources/css/cadastroUsuario.css">
+    <title>Livraria</title>
+</head>
+
+<body>
+    <nav class="menu">
+        <div class="redirecionar-home">
+            <button onClick="window.location.href = baseURL + '/'">Home</button>
+        </div>
+        
+        <div class="acesso menu-direito">
+            <button onClick="window.location.href = baseURL + '/login.html'">login</button>
+            <button onClick="window.location.href = baseURL + '/cadastro.html'">cadastro</button>
+        </div>
+        <div class="meus-pedidos menu-direito">
+            <button onClick="window.location.href = baseURL + '/meus_pedidos.html'">Meus pedidos</button>
+            <button onClick="window.location.href = baseURL + '/carrinho.html'">Carrinho</button>
+        </div>
+
+        <div class="pesquisa-livros">
+            <input type="text" placeholder="Pesquisar por nome, editora ou autor" id='barra-pesquisa'>
+            <button
+                onClick="window.location.href = baseURL + '/pesquisa.html?pesquisa=' + document.querySelector('#barra-pesquisa').value">Pesquisar</button>
+        </div>
+    </nav>
+
+    <main class="cadastro">
+        <form>
+            <div>
+                <label>
+                    Nome:
+                    <br>
+                    <input type="text" id='nome' />
+                </label>
+            </div>
+
+            <div>
+                <label>
+                    Login:
+                    <br>
+                    <input type="text" requried id='login' />
+                </label>
+            </div>
+
+            <div>
+                <label>
+                    Senha:
+                    <br>
+                    <input type="password" required id='senha' />
+                </label>
+            </div>
+            <br><br><br>
+            <button onClick="eventCriarConta(event)"> Cadastrar </button>
+        </form>
+    </main>
+
+</body>
+<script src="resources/scripts/common.js"></script>
+<script src="resources/scripts/conta.js"></script>
+<script type="text/javascript">
+    const eventCriarConta = (e) => {
+        e.preventDefault()
+        const login = document.querySelector('#login').value
+        const senha = document.querySelector('#senha').value
+        const nome = document.querySelector('#nome').value
+
+        criarConta(login, senha, nome)
+        window.location = baseURL + '/index.html'
+    }
+</script>
+
+</html>

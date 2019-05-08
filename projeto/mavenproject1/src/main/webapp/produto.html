@@ -1,0 +1,162 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="resources/css/style.css">
+    <link rel="stylesheet" href="resources/css/produto.css">
+    <title>Livraria</title>
+</head>
+
+<body>
+    <nav class="menu">
+        <div class="redirecionar-home">
+            <button onClick="window.location.href = baseURL + '/'">Home</button>
+        </div>
+
+        <div class="acesso menu-direito">
+            <button onClick="window.location.href = baseURL + '/login.html'">login</button>
+            <button onClick="window.location.href = baseURL + '/cadastro.html'">cadastro</button>
+        </div>
+        <div class="meus-pedidos menu-direito">
+            <button onClick="window.location.href = baseURL + '/meus_pedidos.html'">Meus pedidos</button>
+            <button onClick="window.location.href = baseURL + '/carrinho.html'">Carrinho</button>
+        </div>
+
+        <div class="pesquisa-livros">
+            <input type="text" placeholder="Pesquisar por nome, editora ou autor" id='barra-pesquisa'>
+            <button
+                onClick="window.location.href = baseURL + '/pesquisa.html?pesquisa=' + document.querySelector('#barra-pesquisa').value">Pesquisar</button>
+        </div>
+    </nav>
+
+    <h1 class="nome-livraria"></h1> <!-- nome livraria -->
+
+    <main class="area-produto">
+        <div id="comprar-popup" class="nao-visivel">
+            <form>
+                <label>
+                    <span>Rua:</span>
+                    <input type="text" required id="rua-venda">
+                </label>
+
+                <label>
+                    <span>Numero:</span>
+                    <input type="number" required id="numero-venda">
+                </label>
+
+                <label>
+                    <span>Numero do cartão:</span>
+                    <input type="number" required id="numero-cartao-venda">
+                </label>
+
+                <label>
+                    <span>Validade:</span>
+                    <input type="date" required id="validade-venda">
+                </label>
+
+                <label>
+                    <span>Digito: </span>
+                    <input type="number" required id="digito-venda">
+                </label>
+
+                <select name="" id="forma-pagamento">
+                    <option value="A_VISTA">A vista</option>
+                    <option value="PARCELADO">Parcelado</option>
+                </select>
+
+                <button onClick="eventoCancelarCompra(event)" id='btn-cancelar'>Cancelar</button>
+                <button onClick="eventoConfirmarCompra(event)" id='btn-confirmar'>Confirmar</button>
+            </form>
+        </div>
+        <div class="area-produto-wrapper">
+            <div class="produto-imagem section-produto">
+                <img id="imagem-produto">
+            </div>
+
+            <section class="section-produto">
+                <h1 id="nome-produto"> </h1>
+                <hr />
+                <strong>
+                    <span id="preco-produto"> </span>
+                </strong>
+                <p id="resumo-produto"></p>
+            </section>
+
+            <section class="section-produto">
+
+                <button onClick="eventoComprar()">Comprar</button>
+                <button onClick="eventoAdicionarCarrinho()">Adicionar ao carrinho</button>
+            </section>
+        </div>
+    </main>
+</body>
+
+<script src="resources/scripts/common.js"></script>
+<script src="resources/scripts/venda.js"></script>
+<script src="resources/scripts/carrinho.js"></script>
+
+<script type="text/javascript">
+    const produto = JSON.parse(localStorage.getItem('produto'))
+
+    const $nomeProduto = document.querySelector('#nome-produto')
+    const $precoProduto = document.querySelector('#preco-produto')
+    const $resumoProduto = document.querySelector('#resumo-produto')
+    const $imagemProduto = document.querySelector('#imagem-produto')
+
+    if (produto) {
+        $nomeProduto.innerHTML = produto.titulo
+        $precoProduto.innerHTML = "R$: " + produto.preco
+        $resumoProduto.innerHTML = produto.resumo
+        $imagemProduto.setAttribute('src', produto.capa)
+    }
+
+    const $comprarPopup = document.querySelector('#comprar-popup')
+
+    const eventoComprar = (event) => {
+        $comprarPopup.classList.remove('nao-visivel')
+    }
+
+    const eventoCancelarCompra = (event) => {
+        try { event.preventDefault() } catch (e) { }
+        $comprarPopup.classList.add('nao-visivel')
+    }
+
+    const eventoConfirmarCompra = (event) => {
+        try { event.preventDefault() } catch (e) { }
+        const rua = document.querySelector("#rua-venda").value
+        const numeroCasa = document.querySelector("#numero-venda").value
+        const numeroCartao = document.querySelector("#numero-cartao-venda").value
+        const vencimento = document.querySelector("#validade-venda").value
+        const digitoCartao = document.querySelector("#digito-venda").value
+        const formaPagamento = document.querySelector('#forma-pagamento').value
+
+        console.log(formaPagamento)
+
+        if (!rua || !numeroCasa || !numeroCartao || !vencimento || !digitoCartao) {
+            return
+        }
+
+        venderLivro(sessionStorage.getItem('logado'), 1, produto.titulo, formaPagamento, { rua, numeroCasa, numeroCartao, vencimento, digitoCartao })
+            .then(result => {
+                alert('Comprado')
+                window.location.href = baseURL
+            })
+
+    }
+
+    const eventoAdicionarCarrinho = (event) => {
+        try { event.preventDefault() } catch (e) { }
+        const cliente = sessionStorage.getItem('logado')
+        const _produto = produto.titulo
+
+        adicionarAoCarrinho(cliente, _produto)
+            .then(result => {
+                alert('Produto adicionado')
+            })
+    }
+
+</script>
+
+</html>
